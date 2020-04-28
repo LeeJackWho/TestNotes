@@ -1,0 +1,105 @@
+弱网测试：https://blog.csdn.net/eleven521/article/details/19089671
+fiddler抓包：https://mp.weixin.qq.com/s/VfqZFOLUq6nnh6NCw-LaaA
+fiddler抓包的内容：
+1、模拟限速操作
+2、篡改数据
+3、重定向功能
+4、发送自定义请求，模拟小型接口测试
+5、APP端抓包
+
+利用Fiddler能够进行弱网测试
+打开Fiddler，Rules->Performance->勾选 Simulate Modem Speeds，勾选之后访问网站会发现网络慢了很多
+Fiddler弱网的原理：
+　　Rules—>Cutomize Rules打开CustomRules.js 文档代码显示如下
+if (m_SimulateModem){
+   // Delay sends by 300ms per KB uploaed.
+   oSession["request-trickle-delay"] = "300";
+   // Delay receives by 150ms per KB downloaed.
+   oSession["response-trickle-delay"] = "150";
+}
+分析一下这几行代码：
+首先来判断m_SimulateModem是否为true，也就是是否设置了弱网模式。
+如果为弱网模式。则分析代码
+oSession[“request-trickle-delay”] = “300”; 注释的也很明白，Delay sends by 300ms per KB uploaded.上传1KB需要300ms，转化一下上传速度：1Kb/0.3s = 10/3(KB/s)
+如果你想设置上传的速度为50KB/s，你则需要设置Delay 时间为 20ms
+同样的方法，也可以限制上传的速度，调整oSession[“response-trickle-delay”]即可
+正常来说
+2G：150Kbps，折合下载速度15-20K/s；
+3G：1-6Mbps，折合下载速度120K/s-600K/s
+4G：10-100Mbps，折合下载速度1.5M/s-10M/s
+
+Fiddler简介
+Fiddler（中文名称：小提琴）是一个HTTP的调试代理
+以代理服务器的方式监听系统的HTTP网络数据流动
+Fiddler也可以帮助你检查所有的HTTP通讯，设置断点、修改请求数据，甚至修改服务器返回的数据，功能非常强大。
+
+Fiddler功能特点
+截获客户端 HTTP/HTTPS 的请求，分析与开发调试
+解决开发接口跨域问题、资源访问限制问题
+快速调试线上脚本，排除故障
+进行弱网络环境模拟测试，暴露应用在弱网下的用户体验
+进行接口性能测试
+模拟各种网络攻击
+
+Fiddler工作原理
+Fiddler是一个抓包工具，当浏览器访问服务器会形成一个请求。此时，Fiddler就处于请求之间，当浏览器发送请求，会先经过Fiddler，然后再到服务器；当服务器有返回数据给浏览器时，也会先经过Fiddler，之后数据才在浏览器中显示，这样Fiddler就抓取到了请求和响应的整个过程。
+每当打开Fiddler的时候，会自动在电脑上将“127.0.0.1:8888”设置为代理服务器，并且Fiddler可以一直监听8888端口，这样的话，电脑上所有8888端口发出的请求或者收到的响应，都会经过这个代理服务器。
+
+Fiddler界面简介
+Fiddler主要由四部分组成：工具栏、会话栏、命令栏、监控面板栏
+以下介绍左侧会话面板的功能：
+#: 请求的顺序，从1开始，按照页面加载请求的顺序递增。
+Result : HTTP响应的状态
+Protocol：请求使用的协议（如HTTP/HTTPS）
+Host：请求地址的域名
+URL：请求的服务器路径和文件名
+Body：请求的大小，以byte为单位
+Caching：请求的缓存过期时间或缓存控制header的值
+Content-Type：请求内容编码类型
+Process：发出此请求的Windows进程及进程ID
+Comments ：给请求添加备注
+custom：用户可以通过脚本设置的自定义值
+如果想要抓包，我们首先确保Capture Traffic是否开启，在File –> Capture Traffic开启或关闭，也可以直接点击左下角的按钮来开启/关闭抓包功能。
+
+fiddler手机APP抓包操作
+1. Fiddler抓取手机App的HTTP协议请求数据
+Fiddler开启远程连接
+手机端配置请求代理
+2. Fidder抓取手机App的HTTPS协议请求数据
+ Fiddler开启抓取HTTPS
+ 手机端配置证书(清除证书)
+
+步骤：
+第一步:Fiddler抓取手机App的HTTP协议请求数据
+先简单描述一下实现流程,然后参照流程实现抓取操作:
+首先保证手机和Fiddler主机为同一网络
+Fiddler开启远程设备连接(确认Fiddler代理主机IP和端口号)
+手机端设置网络代理为Fiddler主机(设为Fiddler代理主机IP地址和端口号)
+验证:访问传智官网(http://www.itcast.cn)
+ 1.首先保证手机和Fiddler主机为同一网络
+ 手机IP地址可以连接USB使用root@android:/ # ip addr 查看
+ 2. Fiddler开启远程设备连接
+ 进入Tools-->Options-->Connections-->勾选Allow remote computers to connect
+ 默认监听的端口号8888()
+ 3. 手机端设置网络代理为Fiddler主机
+ 选中网络对应的无线连接名称长按-->修改网络-->高级选项-->代理手动--填写代理IP地址和端口--保存
+ 4. 验证:访问传智官网(http://www.itcast.cn)
+ 手机访问HTTP协议的网络地址
+第二步: Fidder抓取手机App的HTTPS协议请求数据
+先简单描述一下实现流程,然后参照流程实现抓取操作:
+首先保证手机和Fiddler主机为同一网络,并且能够抓取HTTP协议
+Fiddler开启抓取HTTPS协议
+手机端卸载配置证书
+验证:访问博学谷官网(https://www.boxuegu.com/)
+ 1. 首先保证手机和Fiddler主机为同一网络,并且能够抓取HTTP协议
+ 参照第一步实现的抓取HTTP协议操作实现
+ 2. Fiddler开启抓取HTTPS协议
+ 进入Tools-->Options-->HTTPS-->勾选Capture HTTPS CONNECTS-->勾选Decrypt HTTPS traffic --> 勾选 Ignore server certificate errors
+ 3.手机端下载配置证书
+ 访问网址主机地址加端口8888，点击FiddlerRoot certificate弹出框自定义证书名称点击确定
+ 4. 验证:访问博学谷官网(https://www.boxuegu.com/)
+ 访问HTTPS协议的网络地址
+
+唯一需要特殊注意的操作--FIddler主机跟手机处在同一网段中
+
+公众号获取工具：ITester软件测试小栈

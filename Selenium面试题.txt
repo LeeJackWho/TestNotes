@@ -1,0 +1,39 @@
+1. 什么是Selenium？
+Selenium是一个开源的web自动化测试框架，主要是基于web uI的自动化测试。现在的版本，逐步增加了对移动端的自动化测试。Selenium支持多种语言进行开发自动化测试脚本，有Java,python，C#，Javascript等等。Selenium支持跨浏览器平台测试。
+
+2.Selenium是否支持桌面应用软件的自动化测试。
+Selenium不支持桌面软件的自动化测试，Selenium是根据网页元素的属性才定位元素，而其他桌面软件自动化测试工具是根据桌面元素的位置来定位元素，当然现在也有根据桌面元素的属性来定位的。
+
+3.Selenium是否支持用例的执行的引擎。
+引擎好比就是一个发动机。Selenium是没有关于测试用例和测试套件管理和执行的模块。我们需要借助第三方单元测试框架来实现用例管理和用例的执行。例如Java中有Junit或者testNG,Python中有unittest单元测试框架。
+
+4.Seleinum是否有读取excel文件的库
+没有，这里需要用到第三方工具。例如Apache POI插件。
+
+5.Selenium有哪些组件？
+最早的有Selenium IDE,IDE只支持安装在fiefox上一个插件，支持录制自动化脚本。还有
+remote RC,和Grid 和webdriver。我们一般最重要的就是使用webdriver。
+
+6.Selenium有什么限制或者缺陷
+       除了基于web的软件和mobile的程序，selenium不支持桌面软件自动化测试。软件测试报告，和用例管理只能
+依赖第三方插件，例如Junit/TestNG和unittest。由于它是免费的软件，所以没有供应商去提供支持和服务，有问题，只能求助selenium社区。还有一个就是，selenium入门门槛可能有点高，需要具备一定编程语言基础的才能玩转。
+
+7.在selenium中，有哪些不同定位元素方法
+ID/className/Name/LinkText/PartialLinkText/Xpath/CSS selector
+
+8.什么是imlicitlyWait
+imlicitlyWait是隐式等待，一般在查找元素的时候使用。例如，我设置一个查找元素最大时间为10秒，使用了
+imlicitlyWait后，如果第一次没有找到元素，会在10秒之内不断循环去找元素，知道超过10秒，报超时错误。
+
+9.什么是expliciteWait
+这个是显式等待，就是不管如何都是要等10秒，如果你设置了10秒超时，这个是selenium2的功能
+在selenium3中，我暂时没有找到这个接口。
+
+10.什么是线程等待
+有时候，我们需要强制设置线程等待，Thread.sleep(2000),driver这个实例，就是当前的线程。
+
+11.什么是pollingEvery
+这个是设置个一段时间就去做一件事，例如下面设置隔一秒就去查找元素一次。
+ WebDriverWait wait = new WebDriverWait(driver,30);
+ wait.pollingEvery(1, TimeUnit.SECONDS);
+ driver.findElement(By.xpath("xxxx"));

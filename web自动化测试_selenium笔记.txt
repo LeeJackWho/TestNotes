@@ -1,0 +1,59 @@
+selenium IDE 是火狐的插件，用于记录和播放用户与浏览器的交互（录制web操作脚本）
+使用selenium IDE录制脚本转化为代码语言（在后期自己设计脚本时，如果不知道用什么方式定位元素，可使用此方法参考）
+selenium IDE的Command就是经典的关键字驱动
+
+重点分析：
+1录制：录制时红色录制按钮处于按下状态
+2回放：由于网络延迟建议选择最低速度回放
+3浏览器回放时浏览器处于打开状态
+
+重点说明：
+1.id=kw：为百度搜索文本框id属性和值
+2.id=su：为“百度一下”按钮id属性和值
+
+firebug插件能够调试所有网站语言，同时可以快速定位HTML页面元素（获取元素定位和查看元素属性）
+
+由于最新版本Selenium IDE和firebug插件下线，我用Katalon和try Xpath代替
+
+selenium特点：
+1.开源软件 源代码开放可以根据需要来增加工具的某些功能
+2.跨平台 linux、windows、mac
+3.核心功能 可以多个浏览器上进行自动化测试
+4.多语言 Java、Python、C#、JavaScript、Ruby等（误区：测试语言和开发语言不影响）
+5.成熟稳定 已经被google、百度、腾讯等公司广泛使用
+6.功能强大 能够实现类似商业工具的大部分功能，因为开源性，可实现定制化功能
+
+selenium家族：
+selenium 1.0：
+        selenium IDE （火狐插件，利用它录制自动化脚本）
+        selenium Gird（测试量大的使用，分布式） 
+        selenium RC（使用JS脚本注入浏览器，模拟浏览器请求输入数据，访问服务器拦截，定位元素 缺陷：JS脚本的同源策略）
+        缺陷：不支持键盘鼠标操作、不支持同源策略XSS/HTTP（S）、不支持弹出框、对话框
+selenium 2.0：（使用最多）
+        selenium 2.0 = selenium 1.0 + WebDriver
+        基于调用WebDriver Api模拟用户操作
+        WebDriver速度更快，因为直接交互使用
+        支持更多语言
+selenium 3.0：
+        去掉selenium rc的支持
+        全面拥抱Java8
+        支持macOS，支持safaridriver
+        通过ms官方的webdriver server支持Edge浏览器
+        支持IE9.0版本以上
+        通过Mozilla官方的geckodriver来支持Firefox
+重点学习：
+1.selenium IDE
+2.selenium 2.0
+
+jdk  sdk  node  appium selenium
+
+testng单元测试框架完成测试用例编写
+
+
+
+
+
+
+
+
+

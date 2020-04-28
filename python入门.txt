@@ -1,0 +1,504 @@
+python中的数据类型
+一、整数
+二、浮点数 科学计数法表示 1.23*10的九次方表示为1.23e9 0.000012表示为1.2e-5
+三、字符串 以''或者""括起来的任意文本，比如'abc'，"asd"
+四、布尔值 一个布尔值只有True和False两种值，在python中可以直接用True、False表示布尔值（注意大小写）
+五、空值 用None表示
+还有列表、字典等多种数据类型，还允许创建自定义数据类型
+
+练习题：
+1. 计算十进制整数 45678 和十六进制整数 0x12fd2 之和。
+2. 请用字符串表示出Learn Python in imooc。
+3. 请计算以下表达式的布尔值（注意==表示判断是否相等）：
+    100 < 99
+    0xff == 255
+过程：
+print 45678 + 0x12fd2
+
+print "Learn Python in imooc"
+
+print 100 < 99
+
+print 0xff == 255
+结果：
+123456
+Learn Python in imooc
+False
+True
+
+print语句可以向屏幕上输出指定的文字。比如输出'hello, world'，用代码实现如下：
+>>> print 'hello, world'
+当我们在Python交互式环境下编写代码时，>>>是Python解释器的提示符，不是代码的一部分。
+print语句也可以跟上多个字符串，用逗号“,”隔开，就可以连成一串输出：
+>>> print 'The quick brown fox', 'jumps over', 'the lazy dog'
+The quick brown fox jumps over the lazy dog
+print会依次打印每个字符串，遇到逗号“,”会输出一个空格，因此，输出的字符串是这样拼起来的
+
+Python的注释
+任何时候，我们都可以给程序加上注释。注释是用来说明代码的，给自己或别人看，而程序运行的时候，Python解释器会直接忽略掉注释，所以，有没有注释不影响程序的执行结果，但是影响到别人能不能看懂你的代码。
+Python的注释以 # 开头，后面的文字直到行尾都算注释
+# 这一行全部都是注释...
+print 'hello' # 这也是注释
+
+在Python程序中，变量是用一个变量名表示，变量名必须是大小写英文、数字和下划线（_）的组合，且不能用数字开头
+在Python中，等号=是赋值语句，可以把任意数据类型赋值给变量，同一个变量可以反复赋值，而且可以是不同类型的变量
+例如：
+a = 123    # a是整数
+print a
+a = 'imooc'   # a变为字符串
+print a
+这种变量本身类型不固定的语言称之为动态语言，与之对应的是静态语言。
+静态语言在定义变量时必须指定变量类型，如果赋值的时候类型不匹配，就会报错。
+例如Java是静态语言，赋值语句如下（// 表示注释）：
+int a = 123; // a是整数类型变量
+a = "mooc"; // 错误：不能把字符串赋给整型变量
+和静态语言相比，动态语言更灵活
+变量赋值再计算
+例如：
+x=10 #赋值x为10
+x=x+2 #先赋值等号右边的值再计算出x=12
+变量在计算机内存的表示
+当我们写a = 'ABC'时，python解释器做两件事：
+1.在内存中创建一个'ABC'的字符串
+2.在内存中创建名为a的变量，并把它指向'ABC'
+把一个变量a赋值给另一个变量b，这个操作实际上是把变量b指向变量a所指向的数据
+等差数列第N项的值公式：an=a1+(n-1)*d  Sn=n(a1+an)/2
+
+python中定义字符串
+字符串本身包含'怎么办？比如我们要表示字符串 I'm OK ，这时，可以用" "括起来表示：
+"I'm OK"
+类似的，如果字符串包含"，我们就可以用' '括起来表示：
+'Learn "Python" in imooc'
+如果字符串既包含'又包含"怎么办？
+这个时候，就需要对字符串的某些特殊字符进行“转义”，Python字符串用\进行转义。
+要表示字符串 Bob said "I'm OK".
+由于 ' 和 " 会引起歧义，因此，我们在它前面插入一个\表示这是一个普通字符，不代表字符串的起始，因此，这个字符串又可以表示为
+'Bob said \"I\'m OK\".'
+注意：转义字符 \ 不计入字符串的内容中。
+常用的转义字符还有：
+\n 表示换行
+\t 表示一个制表符
+\\ 表示 \ 字符本身
+
+Python中raw字符串与多行字符串
+如果一个字符串包含很多需要转义的字符，对每一个字符都进行转义会很麻烦。为了避免这种情况，我们可以在字符串前面加个前缀 r ，表示这是一个 raw 字符串，里面的字符就不需要转义了。
+例如：
+r'\(~_~)/ \(~_~)/'
+但是r'...'表示法不能表示多行字符串，也不能表示包含'和 "的字符串
+如果要表示多行字符串，可以用'''...'''表示：
+'''Line 1
+Line 2
+Line 3'''
+上面这个字符串的表示方法和下面的是完全一样的：
+'Line 1\nLine 2\nLine 3'
+还可以在多行字符串前面添加 r ，把这个多行字符串也变成一个raw字符串：
+r'''Python is created by "Guido".
+It is free and easy to learn.
+Let's start learn Python in imooc!'''
+
+Python中Unicode字符串
+字符串还有一个编码问题。
+因为计算机只能处理数字，如果要处理文本，就必须先把文本转换为数字才能处理。最早的计算机在设计时采用8个比特（bit）作为一个字节（byte），所以，一个字节能表示的最大的整数就是255（二进制11111111=十进制255），0 - 255被用来表示大小写英文字母、数字和一些符号，这个编码表被称为ASCII编码，比如大写字母 A 的编码是65，小写字母 z 的编码是122。
+如果要表示中文，显然一个字节是不够的，至少需要两个字节，而且还不能和ASCII编码冲突，所以，中国制定了GB2312编码，用来把中文编进去。
+类似的，日文和韩文等其他语言也有这个问题。为了统一所有文字的编码，Unicode应运而生。Unicode把所有语言都统一到一套编码里，这样就不会再有乱码问题了。
+Unicode通常用两个字节表示一个字符，原有的英文编码从单字节变成双字节，只需要把高字节全部填为0就可以。
+因为Python的诞生比Unicode标准发布的时间还要早，所以最早的Python只支持ASCII编码，普通的字符串'ABC'在Python内部都是ASCII编码的。
+Python在后来添加了对Unicode的支持，以Unicode表示的字符串用u'...'表示
+比如：
+print u'中文'
+中文
+注意: 不加 u ，中文就不能正常显示。
+Unicode字符串除了多了一个 u 之外，与普通字符串没啥区别，转义字符和多行表示法仍然有效：
+转义：
+u'中文\n日文\n韩文'
+多行：
+u'''第一行
+第二行'''
+raw+多行：
+ur'''Python的Unicode字符串支持"中文",
+"日文",
+"韩文"等多种语言'''
+如果中文字符串在Python环境下遇到 UnicodeDecodeError，这是因为.py文件保存的格式有问题。可以在第一行添加注释
+# -*- coding: utf-8 -*-
+目的是告诉Python解释器，用UTF-8编码读取源代码。然后用Notepad++ 另存为... 并选择UTF-8格式保存。
+如果开头就用了# -*- coding: utf-8 -*-，代码中不用加u
+使用方法修改字符串大小写：
+>>>name = "ada lovelace"
+>>>print(name.title())
+Ada Lovelace
+>>>name = "Ada Lovelace"
+>>>print(name.upper())
+>>>print(name.lower())
+ADA LOVELACE
+ada lovelace
+用+拼接字符串
+删除字符串中的空白：
+>>>language=' python '
+>>>language.rstrip()
+' python'
+>>>language.lstrip()
+'python '
+>>>language.strip()
+'python'
+python2的print语句：
+>python2.7
+>>>print "hello python2.7"
+hello python2.7
+
+Python中整数和浮点数
+Python支持对整数和浮点数直接进行四则混合运算，运算规则和数学上的四则运算规则完全一致。
+使用括号可以提升优先级，这和数学运算完全一致，注意只能使用小括号，但是括号可以嵌套很多层
+和数学运算不同的地方是，Python的整数运算结果仍然是整数，浮点数运算结果仍然是浮点数：
+1 + 2    # ==> 整数 3
+1.0 + 2.0    # ==> 浮点数 3.0
+但是整数和浮点数混合运算的结果就变成浮点数了：
+1 + 2.0    # ==> 浮点数 3.0
+为什么要区分整数运算和浮点数运算呢？这是因为整数运算的结果永远是精确的，而浮点数运算的结果不一定精确，因为计算机内存再大，也无法精确表示出无限循环小数，比如 0.1 换成二进制表示就是无限循环小数。
+那整数的除法运算遇到除不尽的时候，结果难道不是浮点数吗？我们来试一下：
+11 / 4    # ==> 2
+令很多初学者惊讶的是，Python的整数除法，即使除不尽，结果仍然是整数，余数直接被扔掉。不过，Python提供了一个求余的运算 % 可以计算余数：
+11 % 4    # ==> 3
+如果我们要计算 11 / 4 的精确结果，按照“整数和浮点数混合运算的结果是浮点数”的法则，把两个数中的一个变成浮点数再运算就没问题了：
+11.0 / 4    # ==> 2.75
+python使用两个乘号表示乘方：
+>>>3 ** 2
+9
+若
+>>>age=23
+>>>message="happy " + age + "rd birthday!"
+>>>print(message)
+会报错
+所以使用函数str()避免类型错误
+>>>age=23
+>>>message="happy " + str(age) + "rd birthday!"
+>>>print(message)
+happy 23rd birthday!
+
+Python中布尔类型
+与运算：只有两个布尔值都为 True 时，计算结果才为 True。
+True and True   # ==> True
+True and False   # ==> False
+False and True   # ==> False
+False and False   # ==> False
+或运算：只要有一个布尔值为 True，计算结果就是 True。
+True or True   # ==> True
+True or False   # ==> True
+False or True   # ==> True
+False or False   # ==> False
+非运算：把True变为False，或者把False变为True：
+not True   # ==> False
+not False   # ==> True
+在Python中，布尔类型还可以与其他数据类型做 and、or和not运算，请看下面的代码：
+a = True
+print a and 'a=T' or 'a=F'
+计算结果不是布尔类型，而是字符串 'a=T'，这是为什么呢？
+因为Python把0、空字符串''和None看成 False，其他数值和非空字符串都看成 True，所以：
+True and 'a=T' 计算结果是 'a=T'
+继续计算 'a=T' or 'a=F' 计算结果还是 'a=T'
+要解释上述结果，又涉及到 and 和 or 运算的一条重要法则：短路计算。
+1. 在计算 a and b 时，如果 a 是 False，则根据与运算法则，整个结果必定为 False，因此返回 a；如果 a 是 True，则整个计算结果必定取决与 b，因此返回 b。
+2. 在计算 a or b 时，如果 a 是 True，则根据或运算法则，整个计算结果必定为 True，因此返回 a；如果 a 是 False，则整个计算结果必定取决于 b，因此返回 b。
+所以Python解释器在做布尔运算时，只要能提前确定计算结果，它就不会往后算了，直接返回结果
+
+List和Tuple类型
+Python最常用的两种集合类型：list和tuple，我们可以用list和tuple来表示有序集合。
+
+Python创建列表list
+Python内置的一种数据类型是列表：list。list是一种有序的集合，可以随时添加和删除其中的元素
+比如，列出班里所有同学的名字，就可以用一个list表示：
+>>> ['Michael', 'Bob', 'Tracy']
+['Michael', 'Bob', 'Tracy']
+构造list非常简单，按照上面的代码，直接用 [ ] 把list的所有元素都括起来，就是一个list对象。通常，我们会把list赋值给一个变量，这样，就可以通过变量来引用list：
+>>> classmates = ['Michael', 'Bob', 'Tracy']
+>>> classmates # 打印classmates变量的内容
+['Michael', 'Bob', 'Tracy']
+由于Python是动态语言，所以list中包含的元素并不要求都必须是同一种数据类型，我们完全可以在list中包含各种数据：
+>>> L = ['Michael', 100, True]
+一个元素也没有的list，就是空list：
+>>> empty_list = []
+
+Python按照索引访问list
+索引从0开始
+例如：
+>>>L = ['Adam','Lisa','Bart']
+#打印第一名同学的名字用L[0]
+>>>print L[0]
+Adam
+#打印第二名同学的名字用L[1]
+>>>print L[1]
+Lisa
+#打印第三名同学的名字用L[2]
+>>>print L[2]
+Bart
+要打印第四名同学的名字，用 L[3]:
+>>> print L[3]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+报错了！IndexError意思就是索引超出了范围，因为上面的list只有3个元素，有效的索引是 0，1，2。
+所以，使用索引时，千万注意不要越界。
+
+Python之倒序访问list
+我们还是用一个list按分数从高到低表示出班里的3个同学：
+>>> L = ['Adam', 'Lisa', 'Bart']
+这时，老师说，请分数最低的同学站出来。
+要写代码完成这个任务，我们可以先数一数这个 list，发现它包含3个元素，因此，最后一个元素的索引是2：
+>>> print L[2]
+Bart
+有没有更简单的方法？
+有！
+Bart同学是最后一名，俗称倒数第一，所以，我们可以用 -1 这个索引来表示最后一个元素：
+>>> print L[-1]
+Bart
+Bart同学表示躺枪。
+类似的，倒数第二用 -2 表示，倒数第三用 -3 表示，倒数第四用 -4 表示：
+>>> print L[-2]
+Lisa
+>>> print L[-3]
+Adam
+>>> print L[-4]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+L[-4] 报错了，因为倒数第四不存在，一共只有3个元素。
+使用倒序索引时，也要注意不要越界
+
+Python之添加新元素
+现在，班里有3名同学：
+>>> L = ['Adam', 'Lisa', 'Bart']
+今天，班里转来一名新同学 Paul，如何把新同学添加到现有的 list 中呢？
+第一个办法是用 list 的 append() 方法，把新同学追加到 list 的末尾：
+>>> L = ['Adam', 'Lisa', 'Bart']
+>>> L.append('Paul')
+>>> print L
+['Adam', 'Lisa', 'Bart', 'Paul']
+append()总是把新的元素添加到 list 的尾部。
+如果 Paul 同学表示自己总是考满分，要求添加到第一的位置，怎么办？
+方法是用list的 insert()方法，它接受两个参数，第一个参数是索引号，第二个参数是待添加的新元素：
+>>> L = ['Adam', 'Lisa', 'Bart']
+>>> L.insert(0, 'Paul')
+>>> print L
+['Paul', 'Adam', 'Lisa', 'Bart']
+L.insert(0,'Paul')的意思是，'Paul'将被添加到索引为 0 的位置上（也就是第一个），而原来索引为 0 的Adam同学，以及后面的所有同学，都自动向后移动一位。
+
+Python从list删除元素
+知道要删除的元素在列表的位置，可使用del语句：
+>>>motorcycles = ['honda','yamaha','suzuki']
+>>>print(motorcycles)
+>>>del motorcycles[0]
+>>>print(motorcycles)
+['honda','yamaha','suzuki']
+['yamaha','suzuki']
+用list的pop()方法删除总是删掉list的最后一个元素
+如果Paul不是最后的元素怎么删除？
+>>>L=['Adam','Lisa','Paul','Bart']
+要把Paul提出list就需要定位Paul的位置，由于Paul的索引是2
+>>>L.pop(2)
+'Paul'
+>>>print L
+['Adam','Lisa','Bart']
+pop()只能一个一个删除如要删除索引为2的Paul和索引为3的Bart：
+>>>L=['Adam','Lisa','Paul','Bart']
+>>>L.pop(2)#删除list中的Paul
+>>>L.pop(2)#删除list中的Bart
+>>>print L
+['Adam','Lisa']
+如果从列表中删除一个元素且不再以任何方式使用就用del语句；如果删除元素后还能继续使用就用pop方法
+motorcycles = ['honda','yamaha','suzuki']
+>>>first_owned = motorcycles.pop(0)
+>>>print('the first motorcycles i owned was a ' + first_owned.title() +'.')
+the first motorcycles i owned was a Honda.
+不知道删除的值在什么位置用remove()
+motorcycles = ['honda','yamaha','suzuki']
+>>>motorcycles.remove('yamada')
+>>>print(motorcycles)
+['honda','suzuki']
+使用remove()方法从列表删除元素时，也可以使用它的值，删除值'yamaha'并打印删除原因
+motorcycles = ['honda','yamaha','suzuki']
+>>>too_expensive = 'yamada'
+>>>motorcycles.remove(too_expensive)
+>>>print(motorcycles)
+>>>print("A" + too_expensive.title() + " is too expensive for me.")
+['honda','suzuki']
+A Yamada is too expensive for me.
+
+Python中的替换元素
+>>>L = ['Adam','Lisa','Bart']
+把Bart替换为Paul一个方法是删除Bart再添加Paul，另一个方法是直接替换：
+>>>L[2]='Paul'
+>>>print L
+L =['Adam','Lisa','Paul']
+对list中的某一个索引赋值就可以直接用新的元素替换原来的元素，list包含的元素个数保持不变
+任务：
+班里同学按照分数排名：
+L=['Adam','Lisa','Bart']
+但是一次考试，Bart不小心拿了第一，而Adam考了倒数第一
+>>>L = ['Adam','Lisa','Bart']
+>>>L[0] = 'Bart'
+>>>L[2] = 'Adam'
+>>>print L
+['Bart','Lisa','Adam']
+
+组织列表
+使用sort()对列表进行永久性排序，按字母排序
+cars = ['bmw','audi','toyota','subaru']
+>>>cars.sort()
+>>>print(cars)
+['audi','bmw','subaru','toyota']
+>>>cars.sort(reverse=True)
+>>>print(cars)
+['toyota','subaru','bmw','audi']
+使用函数sorted()对列表进行临时排序
+cars = ['bmw','audi','toyota','subaru']
+>>>print(sorted(cars))
+['audi','bmw','subaru','toyota']
+>>>print(cars)
+['bmw','audi','toyota','subaru']
+倒着打印列表：
+>>>cars = ['bmw','audi','toyota','subaru']
+>>>print(cars)
+>>>cars.reverse
+>>>print(cars)
+['bmw','audi','toyota','subaru']
+['subaru','toyota','audi','bmw']
+确定列表长度
+>>>len(cars)
+4
+
+操作列表：
+使用for循环打印名单所有名字：
+>>>magicians = ['alice','david','carlo']
+>>>for magician in magicians:
+>>>print(magician)
+alice
+david
+carlo
+for循环后面，没有缩进的代码都只执行一次而不会重复
+只有要在for循环中对每个元素执行的代码需要缩进
+for语句末尾的冒号告诉Python下一行是循环的第一行
+
+创建数值列表：
+需要存储一组数字的原因有很多，例如：在游戏中需要追踪每个角色的位置，还可能需要追踪玩家的几个最高分。
+在数据可视化中，处理几乎都是由数字（如温度、距离、人口数量、经纬度等）组成的集合
+列表非常适合用于存储数字集合
+使用函数range()生成一系列数字
+>>>for value in range(1,5):
+>>>    print(value)
+1
+2
+3
+4
+上述代码好像应该打印数字1~5，但实际只会打印到4，Python从第一个值开始数，并在到达指定的第二个值前停止
+使用函数range()创建数字列表：
+>>>numbers = list(range(1,6))
+>>>print(numbers)
+[1,2,3,4,5]
+使用函数range()时还可指定步长，例如：打印1~10内的函数：
+>>>even_numbers = list(range(2,1,2))
+>>>print(even_numbers)
+[2,4,6,8,10]
+创建列表，其中包含1~10整数的平方squares.py：
+>>>squares = []
+>>>for value in range(1,11):
+>>>    square = value**2
+>>>    squares.append(square)
+>>>
+>>>print(squares)
+或不使用临时变量square
+>>>squares = []
+>>>for value in range(1,11):
+>>>    squares.append(value**2)
+>>>print(squares)
+[1,4,9,16,25,36,49,64,81,100]
+简化版squares.py
+>>>squares = [value**2 for value in range(1,11)]
+>>>print(squares)
+
+对数字列表执行简单的统计计算：
+>>>digits = [1,2,3,4,5,6,7,8,9,0]
+>>>min(digits)
+0
+>>>max(digits)
+9
+>>>sum(digits)
+45
+
+处理列表的部分元素——Python称为切片
+players.py
+>>>players=['charles','martina','michael','florence','eli']
+>>>print(players[0:3])
+['charles','martina','michael']
+提取第2~4个元素
+>>>print(players[1:4])
+['martina','michael','florence']
+如果没有指定第一个索引Python自动从列表开头开始，若没有指定第二个索引终止于列表末尾
+>>>print(players[:4])
+['charles','martina','michael','florence']
+>>>print(players[2:])
+['michael','florence','eli']
+输出名单中最后三名成员：
+>>>print(players[-3:])
+遍历切片：
+遍历前三名队员
+players=['charles','martina','michael','florence','eli']
+>>>for player in players[:3]:
+>>>    print(player.title())
+复制列表：
+>>>my_food=['pizza','falafel','cake']
+>>>friend_food=my_food[:]
+
+Python之创建tuple
+tuple是另一种有序的列表，中文翻译为“元组”，tuple一旦创建完毕就不能修改
+创建班里同学的名称，用tuple表示：
+>>>t = ('Adam','Lisa','Bart')
+
+Python之创建单元素tuple
+tuple可以包含0个，1个和任意多个元素
+包含0个元素的tuple就是空tuple：
+>>>t  = ()
+>>>print t
+()
+包含1个元素的tuple用t=（1）就会有歧义为运算的优先级print出来的结果是1而不是tuple
+单元素tuple要多加一个逗号“,”避免歧义：
+>>>t=(1,)
+>>>print t
+(1,)
+
+Python之“可变”的tuple
+>>>t = ('a','b',['A','B'])
+注意到t有三个元素：‘a’，‘b’和一个list['A','B'],list对象可以通过他[2]拿到：
+>>>L = t[2]
+然后我们把list的两个元素改一改：
+>>>L[0] = 'X'
+>>>L[1] = 'Y'
+看一看tuple的内容：
+>>>print t
+('a','b',['X','Y'])
+表面上tuple的元素的确是变了，但其实变的是list的元素
+tuple所谓的不变是说tuple每个元素指向永远不变，指向一个list就不能改成指向其他对象，但指向的list本身是可变的
+任务定义tuple：
+t = ('a','b',['c','d'])
+修改代码使tuple不可变：
+>>>t = ('a','b',('c','d'))
+
+Python之if语句
+
+python画乌龟：
+import turtle #导入库文件
+fred = turtle.Pen() #fred是一个对象变量
+fred.shape("turtle") #形状规定为乌龟
+fred.forward(100) #向前走100像素
+fred.left(100) #向左走100像素
+fred.reset() #重置
+fred.color("red") #颜色为红
+fred.circle(60) #乌龟画一个半径60像素的圆
+Ubuntu解决无法import turtle问题：sudo apt-get install python-tk
+
+
+
+
+
+
+
+
+

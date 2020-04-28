@@ -1,0 +1,74 @@
+<!--HTML定义网页内容、CSS描述网页布局、JavaScript网页行为-->
+<!--JavaScript代码从上到下逐步被解析的过程-->
+<!--
+	JavaScript文件不能独立运行，需要导入网页中，通过浏览器执行，使用<script>标签导入JavaScript文件
+	<script type="text/javascript" src="test.js"></script>
+	定义src属性的<script>标签不应再包含JavaScript代码，如果嵌入了代码，则只会下载并执行外部JavaScript文件，嵌入代码将被忽略
+    HTML中的脚本必须位于<script></script>标签之间
+	脚本可被放置在<body>和<head>部分中
+	—般情况下，在文档的 <head> 标签中包含 JavaScript 脚本，或者导入的 JavaScript 文件。这意味着必须等到全部 JavaScript 代码都被加载、解析和执行完以后，才能继续解析后面的 HTML 部分。如果加载的 JavaScript 文件很大， HTML 文档解析就容易出现延迟。
+	为了避免这个问题，在开发 Web 应用程序时，建议把导入 JavaScript 文件的操作放在 <body> 后面，让浏览器先 将网页内容解析并呈现出来后，再去加载 JavaScript 文件，以便加快网页响应速度。
+-->
+<!DOCTYPE html>
+<script>
+    alert("顶部脚本");
+</script>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>第一个JavaScript程序</title>
+	<!--现代浏览器默认 <script> 标签的脚本类型为 JavaScript，因此可以省略 type 属性；如果考虑到兼容早期版本浏览器，则需要设置 type 属性。-->
+    <!--延迟执行JavaScript文件
+	<script>标签中有一个布尔型属性defer，设置该属性能够将JavaScript文件延迟到页面解析完毕后再执行，defer适用于外部JavaScript文件，不适用<script>标签包含的JavaScript脚本
+	-->
+	<!--异步加载JavaScript文件
+	设置<script>标签的async属性让浏览器异步加载JavaScript文件，即在加载JavaScript文件时浏览器不会暂停，而是继续解析。这样能节省时间，提升响应速度。
+	-->
+	<script type="text/javascript">
+	<!--在JavaScript中document表示网页文档对象；document.write()表示调用Document对象的write方法-->
+	<!--JavaScript程序不仅可以直接放在文档中，也可以放在JavaScript文件中，扩展名.js，外部脚本不能包含script标签；建议把JavaScript文件和网页文件放在同一个目录下-->
+		//使用h1到h6标签
+		document.write("<h1>Hi,JavaScript!</h1>");
+		document.write("<h6>This is H6</h6>");
+		//alert()表示Windows对象的方法，调用该方法将弹出一个提示对话框，显示参数字符串
+		alert("Hi,JavaScript");
+    </script>
+	
+	<script>
+    function displayDate(){
+	    document.getElementById("demo").innerHTML=Date();<!--改变HTML中id为demo的内容-->
+    }
+    </script>
+</head>
+<body>
+<h1>我的第一个 JavaScript 程序</h1>
+<p id="demo">这是一个段落</p>
+<button type="button" onclick="displayDate()">显示日期</button><!--对事件的反应-->
+
+<h2>JavaScript实例</h2>
+<ul>
+<li><a href="https://www.runoob.com/js/js-examples.html">JavaScript 实例</a></li>
+<li><a href="https://www.runoob.com/js/js-ex-objects.html">JavaScript 对象实例</a></li>
+<li><a href="https://www.runoob.com/js/js-ex-browser.html">JavaScript 浏览器支持实例</a></li>	
+<li><a href="https://www.runoob.com/js/js-ex-dom.html">JavaScript HTML DOM 实例</a></li>
+</ul>
+
+<h1>正则判断是否为数字</h1>
+<p>请输入数字。如果输入值不是数字，浏览器会弹出提示框。</p>
+<input id="demo" type="text">
+<script>
+function myFunction()
+{
+	var x=document.getElementById("demo").value;
+	<!--JavaScript的isNaN函数用于检查其参数是否是非数字值-->
+	<!--使用正则把空格替换-->
+	<!--/:相当于转义 ^:匹配开头 \s:匹配空白字符 *:匹配零个或者多个前导字符 |:理解为或者 $:匹配结尾字符 g:执行全局匹配,而不是找到第一个匹配就停止-->
+	if(isNaN(x)||x.replace(/(^\s*)|(\s*$)/g,"")==""){
+		alert("不是数字");
+	}
+}
+</script>
+<button type="button" onclick="myFunction()">点击这里</button>
+
+</body>
+</html>

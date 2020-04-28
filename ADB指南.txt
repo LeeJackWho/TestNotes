@@ -1,0 +1,115 @@
+ADB全称Android Debug Bridge, 是android sdk里的一个工具,目的是起到调试桥的作用，用这个工具可以直接操作管理android模拟器或者真实的andriod设备(手机)，是客户端测试常用的辅助工具。
+借助adb工具，我们可以管理设备或手机模拟器的状态，还可以进行很多终端操作，如安装软件、卸载软件、系统升级、运行shell命令等，让用户在电脑上对手机进行全面的操作、记录终端操作日志。
+而且adb可以跨平台，也就意味着在不仅在windows，在mac、linux平台都可以来使用adb命令，我们只需要下载配置对应平台软件包即可，可以说给我们测试APP帮助大大滴有，我们今天主要介绍在windows平台下操作android设备。
+
+ADB作为一个客户端/服务器架构的命令行工具，主要由3个部分组成。
+（1）Adb clent（客户端）：可以通过它对Android应用进行安装、卸载及调试。
+（2）adb service（服务器）：管理客户端到Android设备上abd后台进程的连接。  
+（3）adb daemon（守护进程）：运行在Android设备上的adb后台进程。
+
+ADB常用命令
+注：adb 使用的端口号是5037，以下总结工作中常用到的adb命令。
+
+1.查看帮助手册列出所有的选项说明及子命令：
+adb help
+
+2. 获取设备列表及设备状态：
+adb devices
+adb devices -l 显示更多信息
+
+3. 获取设备的状态，设备的状态有 device , offline , unknown3种，其中device：设备正常连接，offline：连接出现异常，设备无响应，unknown：没有连接设备。
+adb get-state
+offline（不能调试仅是连接，原因可能是爱丁堡与安卓系统不匹配）
+device（正常状态可调式）
+unauthorized（连接后不能调试，原因是未在手机同意调试，开发者模式同意调试）
+
+4.结束和启动adb服务：adb kill-server /adb start-server , 结束 adb 服务/启动 adb 服务，通常两个命令一起用，设备状态异常时使用 kill-server，运行 start-server 进行重启服务。
+adb kill-server
+adb start-server
+
+5.打印及清除系统日志：adb logcat , 打印 Android 的系统日志 ；adb logcat -c,清除日志。
+adb logcat
+adb logcat -c
+把日志用>重定向放在桌面txt文件中
+adb logcat >Desktop\logcat.txt
+先打印之前的，记住最新的行，进行操作，用ctrl+c终止，最新行下就是操作的日志
+logcat.txt中的I info D debug W warning E error
+在日志中搜error、crash、exception
+日志文件保存在手机
+adb logcat -f /data/local/tmp/logcat.txt
+
+6.生成bugreport文件：adb bugreport , 打印dumpsys、dumpstate、logcat的输出，也是用于分析错误，输出比较多，建议重定向到一个文件中，如adb bugreport > d:\bugreport.log
+adb bugreport
+
+7.安装应用：adb install , 安装应用，adb install -r 重新安装。
+adb install
+adb install -r
+
+8.卸载应用：adb uninstall , 卸载应用，后面的参数是应用的包名，区别于 apk 文件名
+adb uninstall 
+
+9.将 Android 设备上的文件或者文件夹复制到电脑本地：adb pull , 如复制 Sdcard 下的 pull.txt 文件到 D 盘：adb pull sdcard/pull.txt d:\，重命名：adb pull sdcard/pull.txt d:\rename.txt
+adb pull 
+
+10.推送本地文件至 Android 设备：adb push , 如推送 D 盘下的 push.txt 至 Sdcard：adb push d:\push.txt sdcard/   注意sdcard 后面的斜杠不能少。
+adb push
+
+11. 重启 Android 设备：adb reboot ,  adb reboot recovery，重启到Recovery界面；   adb reboot bootloader，重启到bootloader界面。
+adb reboot
+adb reboot recovery
+adb reboot bootloader
+
+12.获取 root 权限：adb root , adb remount,可以直接获取 root 权限，并挂载系统文件系统为可读写状态。
+adb root
+adb remount
+
+13.返回设备序列号SN值：
+adb get-serialno
+
+14.获取设备的ID：
+adb get-product
+
+15.进入设备shell：
+adb shell
+多台设备时用：
+adb -s 所连接设备的device shell
+回到上一目录：cd-
+到根目录：cd~
+查看文件：ls -l
+创建目录：mkdir
+查看资源使用情况：vmstat
+退出：exit
+
+16.列出所有的应用的包名：
+adb shell pm list package
+
+17.截屏并保存至 sdcard 目录：
+adb shell screencap -p /sdcard/screen.png 
+
+18.录制视频并保存至sdcard：adb shell screenrecord sdcard/record.mp4,执行命令后操作手机，ctrl + c 结束录制，录制结果保存至 sdcard：
+adb shell screenrecord sdcard/record.mp4
+
+19.获取设备分辨率：adb shell wm size
+adb shell wm size
+
+20.列出指定应用的 dump 信息：adb shell pm dump 包名
+adb shell pm dump
+
+21.列出对应包名的 .apk 位置：adb shell pm path 包名
+adb shell pm path 
+
+22.查看当前终端中的进程信息：adb shell ps
+adb shell ps
+
+23.monkey测试：adb shell monkey –p 程序包 –v 测试次数 ,比如“adb shell monkey –p com.htc.Weather –v 20000”意思是对com.htc.Weather 这个程序包单独进行一次20000次的monkey测试
+adb shell monkey –p 程序包 –v 测试次数
+
+24.显示所有程序包：
+adb shell ps | grep [process]
+
+25.根据进程pid或包名查看进程占用的内存
+adb shell dumpsys meminfo<pid>
+adb shell dumpsys meminfo<package_name>
+
+查看包名
+aapt d badging Desktop\apps\douban.apk|findstr "package"

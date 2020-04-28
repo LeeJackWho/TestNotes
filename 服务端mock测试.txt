@@ -1,0 +1,148 @@
+如何实现服务端Mock（挡板）
+方案一：让研发在代码里进行Mock
+方案二：创建一个MockServer，模拟支付系统的返回数据
+使用业界开源mockserver
+moco下载地址：github.com/dreamhead/moco
+用法：配置好java环境、下载moco runner包、添加mock配置文件、执行命令、java -jar moco-runner-1.0.0-standalone.jar 协议类型 -p 端口号 -c 配置文件
+     协议类型：http、https、socket
+     端口号：任意指定没被占用0~65535的端口
+     配置文件：请求和响应配置，json格式
+              description（可选）：配置备注
+			  request：接口请求信息
+			  response：接口的响应信息
+			格式
+			[
+			配置1,
+			配置2
+			...
+			]
+场景一：没有参数的get请求 mtx.json 在jason文件所在目录shift+右键打开powershell输入java -jar moco-runner-1.0.0-standalone.jar 协议类型 -p 端口号 -c 配置文件
+[
+  {
+     "description":"没有参数的get请求",
+     "request":{
+	      "uri":"/mtx/query",
+		  "method":"get"
+	 },
+	 "response":"this is response"
+  }
+]
+powershell运行后在浏览器输入localhost:10086/mtx/query
+场景二：有参数get请求
+[
+  {
+     "description":"有参数的get请求",
+     "request":{
+	      "uri":"/mtx/query1",
+		  "method":"get",
+		  "queries":{
+		           "id":"1",
+				   "name":"auto"
+		  }
+	 },
+	 "response":"this is response"
+  }
+]
+powershell运行后在浏览器输入localhost:10086/mtx/query1?id=1&name=auto
+场景三：参数为表单类型的post请求
+[
+  {
+     "description":"有参数的post请求",
+     "request":{
+	      "uri":"/mtx/submit",
+		  "method":"post",
+		  "forms":{
+		           "username":"mtx",
+				   "password":"123456"
+		  }
+	 },
+	 "response":{
+	      "text":"success"
+	 }
+  }
+]
+用postman中url输入http://localhost:10086/mtx/submit在body输入参数username和password
+场景四：参数为json的post接口
+[
+  {
+     "description":"参数json格式的post请求",
+     "request":{
+	      "uri":"/mtx/json/submit",
+		  "headers":{
+		         "content-type":"application/json"
+		  },
+		  "json":{
+		           "name":"hi",
+				   "age":"3"
+		  }
+	 },
+	 "response":{
+	      "json":{
+		       "message":"success",
+			   "status":"1"
+		  }
+	 }
+  }
+]
+postman中body选raw选择json
+场景五：可以重定向场景
+[
+  {
+     "description":"可重定向",
+     "request":{
+	      "uri":"/mtx/redirect",
+		  "method":"get",
+		  "queries":{
+		           "id":"1"
+		  }
+	 },
+	 "rederectTo":"http://www.baidu.com"
+  }
+]
+场景六：返回异常状态码
+[
+  {
+     "description":"返回异常状态码",
+     "request":{
+	      "uri":"/mtx/query2",
+		  "method":"get",
+		  "queries":{
+		           "id":"1"
+		  }
+	 },
+	 "response":{
+	 status":"500"
+	 }
+  }
+]
+场景七：响应延迟场景，unit为millisecond或second
+[
+  {
+     "description":"响应延迟场景，unit为millisecond或second",
+     "request":{
+	      "uri":"/mtx/delay",
+		  "method":"get",
+		  "queries":{
+		           "id":"1"
+		  }
+	 },
+	 "response":{
+	      latency":{
+		        "duration":500,
+				"unit":"millisecond"
+		  },
+		  "json":{
+		        "name":"success",
+				"status":"1"
+		  }
+	 }
+  }
+]
+
+
+
+
+
+
+
+

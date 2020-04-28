@@ -1,0 +1,53 @@
+1、单元测试框架：
+	java junit testng
+	python unittest pytest
+
+2、eclipse需要安装testng的插件：
+	https://testng.org/doc/download.html
+	可以直接通过eclipsemarket安装
+	也可以在官网下载包之后，用eclipse instal new software来完成安装。
+
+3、testng使用的时候，主要用到的就是testng的xml管理文件来完成管理，以及编写测试类完成管理。
+	层级关系：
+	suite->test->class->method
+
+	那么before和after的注解，就会分别在这个层级之前和之后被调用。通常用于环境准备和清理工作。
+
+	根据自己的需求，来决定使用什么层级，而不是根据层级来决定测试用例怎么写。
+
+4、testng运行的时候，测试类中的测试方法运行顺序不符合编写的顺序。
+	testng可以在@test注解中使用priority参数来设定优先级。@Test(priority = 2)
+	@test注解中使用enabled参数可以指定测试方法是否运行。@Test(enabled = false) 指定测试方法不运行。
+
+
+
+5、selenium使用小技巧：加载用户文件，通过在chrome浏览器中输入 chrome://version 找到个人资料路径，复制到default之前的路径。
+		ChromeOptions options=new ChromeOptions();
+		//在浏览器启动的时候，使用chrome的本地用户文件。
+		//可以使用本地的浏览器用户文件中的缓存和cookie，让网页加载速度更快，可以对一些网站实现登录状态访问
+		options.addArguments("--user-data-dir=D:\\chromeData\\copyData");
+		driver=new ChromeDriver(options);
+		driver.manage().window().maximize();
+
+
+6、测试用例管理，po模式，页面对象模式。
+	1、测试百度访问
+	2、测试电商登录
+	3、测试订单中的第二个订单内容是vivoX21
+		断言编写，读取第二个订单元素，然后通过assert判断是否为预期结果。
+	4、访问商城中的手机购买界面，对手机进行价格排序，看最便宜的是不是599。
+
+
+7、生成testng.xml管理文件的快速方法：
+	选中需要执行的测试类，然后convert to testng，会帮你生成。
+	使用suite来管理多个测试class的时候，运行时，在xml文件中，右键run as  testng suite
+
+	如果某条测试用例不执行了，直接把class注释掉就行，注释用<!-- 注释 -->
+
+8、eclipse设置中 testng的output directory会自动生成报告。
+
+9、allure测试报告美化：
+	https://github.com/allure-examples/allure-testng-example  中找到pom文件的配置，加到自己maven项目中
+	执行mvn clean test site命令，生成allure测试报告的依赖结果文件。
+	mvn io.qameta.allure:allure-maven:serve 
+	将最终打开美化的allure测试报告。

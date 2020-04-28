@@ -1,0 +1,130 @@
+一、Android四大组件
+Android四大基本组件：Activity、BroadcastReceiver广播接收器、ContentProvider内容提供者、Service服务。
+Activity:
+应用程序中，一个Activity就相当于手机屏幕，它是一种可以包含用户界面的组件，主要用于和用户进行交互。一个应用程序可以包含许多活动，比如事件的点击，一般都会触发一个新的Activity。
+BroadcastReceiver广播接收器：
+应用可以使用它对外部事件进行过滤只对感兴趣的外部事件(如当电话呼入时，或者数据网络可用时)进行接收并做出响应。广播接收器没有用户界面。然而，它们可以启动一个activity或serice 来响应它们收到的信息，或者用NotificationManager来通知用户。通知可以用很多种方式来吸引用户的注意力──闪动背灯、震动、播放声音等。一般来说是在状态栏上放一个持久的图标，用户可以打开它并获取消息。
+ContentProvider内容提供者:
+内容提供者主要用于在不同应用程序之间实现数据共享的功能，它提供了一套完整的机制，允许一个程序访问另一个程序中的数据，同时还能保证被访问数据的安全性。只有需要在多个应用程序间共享数据时才需要内容提供者。例如：通讯录数据被多个应用程序使用，且必须存储在一个内容提供者中。它的好处：统一数据访问方式。
+Service服务：
+是Android中实现程序后台运行的解决方案，它非常适合去执行那些不需要和用户交互而且还要长期运行的任务（一边打电话，后台挂着QQ）。服务的运行不依赖于任何用户界面，即使程序被切换到后台，或者用户打开了另一个应用程序，服务仍然能够保持正常运行，不过服务并不是运行在一个独立的进程当中，而是依赖于创建服务时所在的应用程序进程。当某个应用程序进程被杀掉后，所有依赖于该进程的服务也会停止运行（正在听音乐，然后把音乐程序退出）。
+二、代码能力
+1、请用自己最擅长的编程语言，将一个字符串反转并输出？
+　　参考答案：
+　　（1）python实现：
+　　方法1、使用[::-1]：
+   s = 'python'
+　　print s[::-1]
+　　方法2、使用reverse()方法：
+   l = list(s)
+　　l.reverse()
+　　print ''.join(l)
+　　（2）java实现：
+　　方法1、使用StringBuffer，一点技巧也没有：
+   public String reverse(String s){
+　　return new StringBuffer(s).reverse().toString();
+　　}
+　　方法2、灵活运用了字符串功能：
+   public String reverse(String s){
+　　char[] letters=s.toCharArray();
+　　char temp;
+　　int len=letters.length;
+　　for(int i=len/2-1;i>=0;i--){
+　　temp=letters[i];
+　　letters[i]=letters[len-1-i];
+　　letters[len-1-i]=temp;
+　　}
+　　return new String(letters);
+　　}
+2、针对数十个安卓应用市场渠道包，请问如何进行大体的功能验证，简单叙述一下思路？
+参考答案：可以自动化遍历某个目录下面的所有渠道包apk，然后循环：安装——》登录——》**操作——》退出——卸载
+三、测试思路
+1、给你一个模块，比如注册模块，你会怎么样设计与执行测试？
+参考答案：数据——》从哪里来（入口）——》到哪里去（出口）——》数据库（检验数据的正确性）
+2、你认为app测试过程中，相对于web，要更多注意哪些测试点？或者说app测试和web测试有哪些不同之处？
+参考答案：他们的主要区别在于具体测试的细节和方法有区别，比如：性能测试，在WEB测试只需要测试响应时间这个要素，在App测试中还需要考虑流量测试和耗电量测试。
+安装测试：WEB测试基本上没有客户端层面的安装测试，但是App测试是存在客户端层面的安装测试，那么就具备相关的测试点。
+交叉事件测试：就是在操作某个软件的时候，来电话、来短信，电量不足提示等外部事件。
+操作类型测试：如横屏测试，手势测试
+网络测试：包含弱网和网络切换测试。需要测试弱网所造成的用户体验，重点要考虑回退和刷新是否会造成二次提交。弱网络的模拟，据说可以用360wifi实现设置。主要是针对2G、3G、4G、wifi三种网络环境进行测试 ；
+兼容性测试：在WEB端是兼容浏览器，在App端兼容的是手机设备。而且相对应的兼容性测试工具也不相同，WEB因为是测试兼容浏览器，所以需要使用不同的浏览器进行兼容性测试（常见的是兼容IE6，IE8，chrome，firefox）如果是手机端，那么就需要兼容不同品牌，不同分辨率，不同android版本甚至不同操作系统的兼容。（常见的兼容方式是兼容市场占用率前N位的手机即可），有时候也可以使用到兼容性测试工具，但WEB兼容性工具多用IETester等工具，而App兼容性测试会使用Testin这样的商业工具也可以做测试。
+四、测试技术
+1、说说会用哪些抓包工具？怎么用的？
+参考答案：比如fiddler，主要用来做app抓包使用，先在fiddler客户端做好各项配置，端口设置为8888，然后在手机上设置代理，就可以抓包了，主要看的是服务器返回的值、还能够修改传入参数、传出的参数、模拟网络延时，去构造不同场景。
+2、0app的日志如何抓取?
+参考答案：adb logcat | find "com.sankuai.meituan" >d:\hello.txt
+也可以用ddms抓取，手机连上电脑，打开ddms工具，或者在Android Studio开发工具中，打开DDMS
+3、你平常会看日志吗, 一般会出现哪些异常（Exception）?
+参考答案：这个主要是面试官考察你会不会看日志，是不是看得懂java里面抛出的异常，Exception.一般面试中java Exception（runtimeException ）是必会被问到的问题
+app崩溃的常见原因应该也是这些了。常见的异常列出四五种，是基本要求。
+常见的几种如下：
+　　NullPointerException - 空指针引用异常
+　　ClassCastException - 类型强制转换异常。
+　　IllegalArgumentException - 传递非法参数异常。
+　　ArithmeticException - 算术运算异常
+　　ArrayStoreException - 向数组中存放与声明类型不兼容对象异常
+　　IndexOutOfBoundsException - 下标越界异常
+　　NegativeArraySizeException - 创建一个大小为负数的数组错误异常
+　　NumberFormatException - 数字格式异常
+　　SecurityException - 安全异常
+　　UnsupportedOperationException - 不支持的操作异常
+4、什么是alpha测试和beta测试？
+参考答案：alpha测试：在公司场地，由员工主导的测试行为；beta测试：在客户场地，由客户主导进行的测试。
+5、请写出一个SQL来查询分数前五5的所有人？
+参考答案：mysql：select * from 分数表 order by 分数 desc limit 5;
+oracle：select top 5 * from 分数表 order by 分数 desc;
+6、linux常用命令有哪些？
+　　参考答案：cd命令：切换到某个目录
+　　ls命令：列出当前目录的所有文件、文件夹
+　　pwd命令：列出当前目录的路径
+　　cp命令：复制
+　　mv命令：剪切
+　　grep命令：管道
+　　find命令：查找
+　　rm命令：删除
+　　ps命令：查看进程
+　　kill命令：杀掉某个进程
+　　cat命令：查看某文件
+　　tar命令：打包
+　　chmod命令：赋权限
+　　chown命令：改变文件的所有者
+　　vim命令：文本编辑
+7、请说明Android手机和IOS手机，系统有什么区别？
+　　参考答案：两者运行机制不同：IOS采用的是沙盒运行机制，安卓采用的是虚拟机运行机制。
+　　两者后台制度不同：IOS中任何第三方程序都不能在后台运行；安卓中任何程序都能在后台运行，直到没有内存才会关闭。
+　　IOS中用于UI指令权限最高，安卓中数据处理指令权限最高。
+8、请简要介绍一下安卓系统四层架构？
+　　参考答案：从上到下，依次是：应用程序层——》应用程序框架层——》系统运行库层——》Linux核心层
+9、简单介绍一下Android SDK中自带的几个工具/命令的功能？
+　　参考答案：ddms：Dalvik Debug Monitor Service，是 Android 开发环境中的Dalvik[虚拟机]调试监控服务。
+　　monkey：Android中的一个命令行工具，可以运行在模拟器里或实际设备中。它向系统发送伪随机的用户事件流(如按键输入、触摸屏输入、手势输入等)，实现对正在开发的应用程序进行压力测试。
+　　uiautomator：UIAutomator是Eclipse自带的用于UI自动化测试工具，可仿真APP上的单击、滑动、输入文本等操作。
+　　monitor：同uiautomator
+　　adb：ADB的全称为Android Debug Bridge，就是起到调试桥的作用。通过ADB我们可以在Eclipse中方面通过DDMS来调试Android程序，就是debug工具。
+10、常用的adb命令有哪些？请随便写一个monkey脚本，并解释其中参数的含义？
+　　参考答案：adb devices、adb install、adb uninstall、adb shell pm 、adb shell am
+　　adb shell monkey -p com.xiaoniu.finance -s 123 --throttle 500 --ignore-crashes --ignore-timeouts --ignore-security-exceptions -v -v -v 2000 > d:\xnonline-monkey-test1.txt
+　　-p：app包名、
+　　--throttle：每个操作的间隔时间，单位ms
+　　--ignore-crashes：忽略崩溃
+　　--ignore-timeouts：忽略超时
+　　--ignore-security-exceptions：忽略安全异常
+　　-v -v -v：日志详细等级，3个v代表最详细等级的日志
+　　d:\xnonline-monkey-test1.txt：代表将产生的日志，放到本地PC的D盘，并命名为：xnonline-monkey-test1.txt
+11、测试过程中遇到app出现crash或者ANR，你会怎么处理？
+　　参考答案：可以先把日志过滤出来：adb logcat | findstr xxxxx(过滤日志信息) ，然后再搜索其中的关键字，比如：exception、crash，看看是那些方法或者异常导致了问题的发送，初步定位问题原因后，可以交给开发人员去具体查找深层原因并修复。
+12、请简单介绍一下使用过的安卓UI自动化测试工具？
+　　参考答案：appium：是一个移动端的自动化框架，可用于测试原生应用，移动网页应用和混合型应用，且是跨平台的。
+　　robotium：是一款国外的Android自动化测试框架，主要针对Android平台的应用进行黑盒自动化测试，它提供了模拟各种手势操作（点击、长按、滑动等）、查找和断言机制的API，能够对各种控件进行操作。
+13、你觉得app的性能测试，即专项测试，需要重点关注哪些方面？
+参考答案：内存、cpu占用、耗电量、流量、流畅度等
+
+
+
+
+
+
+
+
+
+

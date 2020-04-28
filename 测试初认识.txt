@@ -1,0 +1,38 @@
+马克二型计算机里发现bug
+Grace Hopper发现计算机程序中第一个bug，创造计算机世界最大的bug千年虫
+
+bug的三个定义：
+1.Fault：静态存在于软件当中的缺陷
+2.Error：在运行过程当中fault触发了错误的中间状态
+3.Failure：error传不到软件外，用户能观测到失效的行为
+例子：
+public static void CSta(int[] numbers)
+{
+   int length = numbers.length;
+   double mean,sum;
+
+   sum = 0.0;
+   //正确为i=0，数组由0开始,静态存在为Fault
+   for(int i = 1;i<length;i++);
+   {
+    //输入数据[3,4,5]，正确输出sum=3+4+5，因为i=1实际输出错误sum=4+5，错误的中间状态Error
+    sum += numbers[i];
+   }
+    //mean正确输出为4，实际错误输出为3，失效行为Failure
+    mean = sum/(double)length;
+   System.out.println("mean:"+mean);
+}
+整个过程通过PIE模型刻画，要观察到Failure需要
+1.执行：必须通过错误代码
+2.感染：触发错误中间状态
+3.传染：错误中间状态传播到最后输出
+
+测试术语：
+测试用例TestCase
+测试与调试Testing and Debugging：测试是测出bug，调试是找出并修正fault
+确认Validation：确认规格文档是否客户所需要
+核实Verification：文档和实现是否一致
+动态测试和静态测试区别于是否需要运行程序
+黑盒测试和白盒测试区别于是否需要知道源代码
+灰盒测试通过反编译获得部分软件结构信息进行测试
+测试层次：单元测试、模块测试、集成测试、系统测试 

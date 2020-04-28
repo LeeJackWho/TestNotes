@@ -1,0 +1,158 @@
+分组查询
+group by和聚合函数（sum avg min max）一起用
+having对分组之后的数据进行过滤
+
+连接查询
+内连接（等值连接）查两个表的交集合并
+INNER JOIN
+左连接
+LEFT JOIN
+右连接
+RIGHT JOIN
+
+嵌套查询
+嵌套的SQL语句可以放在select后、from后、where条件后
+
+五种关联查询：
+1.交叉连接（CROSS JOIN）
+2.内连接（INNER JOIN）
+	等值连接：ON A.i=dB.id
+	不等值连接：ON A.id>B.id
+	自连接：SELECT*FROM A T1 INNER JOIN A T2 ON T1.id=T2.id
+3.外连接（LEFT JOIN/RIGHT JOIN）
+	左外连接：LFET OUTER JOIN以左表为主，先查询出左表，安照ON后的关联条件匹配右表，没有匹配到的用NULL填充
+	右外连接：RIGHT OUTER JOIN以右表为主，先查询出右表，安照ON后的关联条件匹配左表，没有匹配到的用NULL填充
+4.联合连接（UNION与UNION ALL）
+5.全连接（FULL JOIN）
+
+创建数据库tester：create database tester;
+查看数据库是否创建成功：show databases;
+创建isTester表和idoxu
+1）isTester表的字段、类型、属性：
+create table istester(
+id INT(10) NOT NULL UNIQUE PRIMARY KEY ,
+uname VARCHAR(20) NOT NULL ,
+sex VARCHAR(4) ,
+birth YEAR ,
+department VARCHAR(20) ,
+address VARCHAR(50) ,
+idoxu VARCHAR(20)
+);
+2）idoxu表的字段、类型、属性：
+create table idoxu(
+id  INT(10)  NOT NULL  UNIQUE  PRIMARY KEY  AUTO_INCREMENT ,
+stu_id  INT(10)  NOT NULL ,
+c_name  VARCHAR(20) ,
+istester VARCHAR(50) ,
+grade  INT(10)
+);
+复制istester表结构，创建新表istester2：create table istester2 like istester或create table idoxu2 as select * from idoxu where 2=1;
+复制idoxu表结构和数据，创建新表idoxu3：create table idoxu3 as select * from idoxu
+复制idoxu表结构的 id,stu_id,istester三个字段，创建新表idoxu3，where 1<>1表示组合查询时无论是否有条件恒为真：create table idoxu3 as select id,stu_id,istester from idoxu where 1<>1;
+删除表 istester2：drop table istester2 ;
+同时删除表idoxu2和idoxu3：drop table idoxu2,idoxu3 ;
+查看还有哪些表：show tables;
+修改istester表，添加一个字段istester6 （字符类型VARCHAR，长度100，不允许为空）：ALTER table istester add column istester6 VARCHAR(100) NOT NULL;
+查看字段istester6  ，是否添加成功：desc istester
+修改istester表，删除字段istester6：ALTER table istester drop istester8
+确认字段istester6  ，是否删除成功：desc istester
+插入 insert：
+1）向表istester插入数据
+id = 1 ,uname = idoxu ,idoxu = 2020
+id = 2 ,uname = idoxu2 ,idoxu = 2020
+id=11,uname = idoxu3,sex=1
+id=12,uname = idoxu4,sex=2
+id=13,uname = idoxu5,sex=1
+id=14,uname = idoxu6,sex=2
+2）向表idoxu插入数据
+id=4,stu_id=11,c_name=idoxu,grade=90
+id=5,stu_id=12,c_name=lin,grade=100
+id=6,stu_id=33,c_name=istester,grade=20
+参考语句：
+insert into istester(id,uname,idoxu) values(1,"idoxu",2020);
+insert into istester(id,uname,idoxu) values(2,"idoxu2",2020);
+insert into istester(id,uname,sex) values(11,"idoxu3",1),(12,"idoxu4",2),(13,"idoxu5",1),(14,"idoxu6",2);
+insert into idoxu(id,stu_id,c_name,grade) values(4,11,"idoxu",90),(5,12,"lin",100),(6,33,"istester",20);
+查询istester表 id = 1的内容：select * from istester where id = 1;
+查询idoxu 表 grade=100 的内容：select * from idoxu where grade =100;
+查找idoxu表，名称（c_name）包含 “i” 的数据：select * from idoxu where c_name like '%i%' ;
+查找istester表，id 包含 “1” 的数据：select * from istester where id like '%1%';
+查找istester表，id 包含 “1” 的数据，按id降序 ：select * from istester where id like '%1%' order by id desc ;
+查找istester表，id 包含 “1” 的数据 ，取id最大的三个：select * from istester where id like '%1%' order by id desc limit 3 ;
+找出idoxu表中，分数最高的同学和分数：SELECT c_name,grade as "maxvalue" from idoxu WHERE grade in (select MAX(grade)  from idoxu ) ;
+找出idoxu表中，分数最低的同学和分数：SELECT c_name,grade as "minvalue" from idoxu WHERE grade in (SELECT MIN(grade)  from idoxu );
+找出istester表，sex为空的的数据：select * from istester where sex is null ;
+更新istester表，sex为空的，设置为0（性别未知）：update istester set sex = 0 where sex is null ;
+找出idoxu表，grade小于60分的同学：select * from idoxu where grade < 60 ;
+更新idoxu表，把grade小于60分的同学，一律改为59分：update idoxu set grade = 59 where grade < 60 ;
+查找istester表，按id降序：select * from istester order by id desc;
+查找idoxu表，按grade升序：select * from idoxu order by grade asc;
+查询istester表，有多少行数据：select COUNT(sex) from istester;
+查询istester表，有性别类型数量（sex字段，去重）：select COUNT(DISTINCT sex) from istester;
+查找idoxu表，学生成绩(grade) 总分：select sum(grade) as sumgrade from idoxu ;
+查找idoxu表，学生成绩(grade) 平均分：select avg(grade) as avggrade from idoxu ;
+SQL Server中 between and是包括边界值的，not between不包括边界值，不过如果使用between and 限定日期需要注意，如果and后的日期是到天的，那么默认为00:00:00 例如：and 后的日期为2017年04月06日，就等价于2017-04-06 00:00:00 ，那么2017-04-06 15:10:34的数据就差不到了，需要进行to_char处理。
+查找idoxu表，成绩在80 - 100区间的学生：select * from idoxu where grade between 80 and 100;
+查找istester表，id 为 2，11，12 的数据：select * from istester where id in (2,11,12) ;
+删除 istester表，id大于12的数据：delete from istester where id > 12;
+删除idoxu表，分数grade不及格（小于60分）的数据：delete from idoxu where grade < 60 ;
+造数据 ，把istester表的所有数据，插入到 idoxu表
+字段关系
+id 取id
+stu_id 取id
+c_name 取 uname
+istester 和 grade字段，给默认值 60
+insert into idoxu(id,stu_id,c_name,istester,grade) select id,id,uname,60,60 from istester ;
+把idoxu表，改名为 idoxu6，ALTER TABLE 旧表名 RENAME TO 新表名：ALTER TABLE idoxu RENAME TO idoxu681 ;
+检查是否修改成功：show tables;
+修改表idoxu6，把字段istester ，改为istester6（字符类型varchar，长度160 ）：alter table idoxu6 CHANGE istester istester6 varchar(160);
+检查是否修改成功：desc idoxu6;
+1）创建数据库 istesterdb6
+create database istesterdb6 ;
+2）检查数据库是否创建成功 ；
+show databases ;
+3）进入istesterdb6 库
+use istesterdb6 ;
+4）在数据库 istesterdb6 ，创建idoxu表，直接拷贝 istester库idoxu6表的数据和结构 ；
+create table istesterdb6.idoxu as SELECT * from istester.idoxu6;
+或
+create table idoxu as SELECT * from istester.idoxu6;
+5）检查表是否创建成功 ；
+show tables;
+-- 1）排名前三的学生 和分数 ； 
+SELECT c_name,grade FROM idoxu ORDER BY grade DESC LIMIT 3; 
+-- 2）排名3 - 6名的学生 和分数 ； 
+SELECT c_name,grade FROM idoxu ORDER BY grade DESC LIMIT 2,4; 
+-- 3）排名6名以后的所有学生 和分数 ； 
+SELECT c_name,grade FROM idoxu ORDER BY grade DESC LIMIT 5,666;
+注：这题目的是limit的用法，很多同学写的太复杂 ；
+limit是mysql的语法
+select * from table limit m,n
+其中m是指记录开始的index，从0开始，表示第一条记录
+n是指从第m+1条开始，取n条。
+select * from tablename limit 2,4
+即取出第3条至第6条，4条记录
+注：主要目的是熟悉这三种玩法，以及观察结果差异 ；
+#左连接 
+SELECT * from idoxu6 a LEFT JOIN istester b on a.stu_id=b.id; 
+#内连接 
+SELECT * from idoxu6 a INNER JOIN istester b on a.stu_id=b.id; 
+#右连接 
+SELECT * from idoxu6 a RIGHT JOIN istester b on a.stu_id=b.id;
+1）把表idoxu6，改名为idoxu 
+rename table idoxu6 to idoxu; 
+或
+alter table idoxu6 rename idoxu; 
+2）删除库 istesterdb6 
+drop database istesterdb6; 
+3）删除istester表 
+drop table istester; 
+4）清空idoxu表的数据 
+truncate table idoxu; 
+或
+delete from idoxu;
+
+
+
+
+

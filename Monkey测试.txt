@@ -1,0 +1,257 @@
+（一）Monkey简介
+Monkey意指猴子，顽皮淘气。所以Monkey测试，顾名思义也就像猴子一样在软件上乱敲按键，猴子什么都不懂，就爱捣乱。Monkey原理也是类似，通过向系统发送伪随机的用户事件流（如按键输入、触摸屏输入、滑动Trackball、手势输入等操作），来对设备上的程序进行压力测试，检测程序多久的时间会发生异常。
+Monkey包括许多选项，它们大致分为四大类：
+（1）基本配置选项，如设置尝试的事件数量;
+（2）运行约束选项，如设置只对单独的一个包进行测试;
+（3）事件类型和频率;
+（4）调试选项;
+（二）Money原理
+在Monkey运行的时候，它生成事件，并把它们发给系统。同时，Monkey还对测试中的系统进行监测，对下列三种情况进行特殊处理（自动停止）：
+(1)如果限定了Monkey运行在一个或几个特定的包上，那么它会监测试图转到其它包的操作，并对其进行阻止；
+(2)如果应用程序崩溃或接收到任何失控异常，Monkey将停止并报错；
+(3)如果应用程序产生了应用程序不响应(application not responding)的错误，Monkey将会停止并报错；
+按照选定的不同级别的反馈信息，在Monkey中还可以看到其执行过程报告和生成的事件。
+(1)Monkey程序由Android系统自带，使用Java语言写成，在Android文件系统中的存放路径是：
+/system/framework/monkey.jar；
+(2)Monkey.jar程序是由一个名为“monkey”的Shell脚本来启动执行，shell脚本在Android文件系统中的存放路径是：/system/bin/monkey；
+(3)通过在cmd窗口中执行: adb shell monkey ｛+命令参数｝来进行Monkey测试;
+（三）Monkey命令详解
+monkey测试：adb shell monkey –p 程序包 –v 测试次数
+比如“adb shell monkey –p com.htc.Weather –v 20000”意思是对com.htc.Weather 这个程序包单独进行一次20000次的monkey测试
+adb shell monkey –p 程序包 –v 测试次数
+
+查看monkey：连接手机root@android路径下
+root@android:/ # cd /system
+root@android:/system # ls
+root@android:/system # cd bin
+root@android:/system/bin # ls -l monkey
+在system的bin目录下看到monkey
+查找monkey路径命令：find ./ -name monkey
+查看monkey内容：cat monkey
+需要知道待测APP的包名，可以通过使用“uiautomatorviewer.bat”工具来获取，也可以直接询问提供app的开发小哥哥，或者直接使用adb命令获取包名。
+以下简单介绍两种通过adb命令获取包名的方法。
+方法一：首先要先打开手机中需要获取包名的app，然后分别输入命令即可。
+//获取APP包名方法一
+  adb shell
+  dumpsys activity | grep mFocusedActivity
+方法二：查看设备中所有的包，在cmd 窗口中执行以下命令：
+//获取APP包名方法二
+  adb shell
+   cd data/data
+    ls
+
+之后输入一些Monkey命令，就可以开始测试。
+//获取Monkey命令自带的帮助，在cmd中执行命令： 
+  adb shell monkey –help
+  
+//边测试边打印log
+  adb shell monkey -p com.tencent.WeChat –v 20000|logcat -v time>D:\log\1.txt
+说明：用Monkey 测试时，为了方便分析问题，可以在命令monkey命令后面加上 |logcat -v time，这样就能边测试边打印Log并存到电脑本地，但是以上组合在monkey测试完成后，logcat仍然在执行，测试时需注意手动结束。
+
+//指定一个包让Monkey程序模拟100次随机用户事件
+  adb shell monkey -p com.tencent.WeChat 100
+说明：参数-p用于约束限制，用此参数指定一个或多个包（即App）。指定包之后，Monkey将只允许系统启动指定的APP；如果不指定包，Monkey将允许系统启动设备中的所有APP，com.tencent.WeChat为包名，100是事件计数。
+
+//指定多个包
+  adb shell monkey -p com.tencent.WeChat -p com.tencent.QQ -p com.tencent.QQBrowser 100
+
+//不指定包
+  adb shell monkey  100
+说明：Monkey随机启动APP并发送100个随机事件。
+
+//指定日志级别Level 0
+  adb shell monkey -p com.tencent.WeChat –v 100
+说明：日志级别用于指定反馈信息级别（信息级别就是日志的详细程度），日志级别 Level 0 ，仅提供启动提示、测试完成和最终结果等少量信息。
+
+//指定日志级别Level 1
+  adb shell monkey -p com.tencent.WeChat –v -v 100
+说明：日志级别 Level 1，提供较为详细的日志，包括每个发送到Activity的事件信息。 
+
+//指定日志级别Level 2
+  adb shell monkey -p com.tencent.WeChat –v -v -v 100
+说明：日志级别 Level 2，提供最详细的日志，包括了测试中选中/未选中的Activity信息。
+
+//指定用户操作（即事件）间的时延
+  adb shell monkey -p com.tencent.WeChat –throttle 3000 100
+说明：throttle单位是毫秒。
+
+//即使app崩溃，Monkey依然继续发送事件，直到事件数目达到目标值为止
+  adb shell monkey -p com.tencent.WeChat  --ignore-crashes 1000
+说明：用于指定当应用程序崩溃时（Force& Close错误），Monkey是否停止运行。如果使用--ignore-crashes参数，即使应用程序崩溃，Monkey依然会发送事件，直到事件计数达到1000为止。
+
+//即使APP发生ANR，Monkey依然继续发送事件，直到事件数目达到目标值为止
+  adb shell monkey -p com.tencent.WeChat  --ignore-timeouts 1000
+说明：用于指定当应用程序发生ANR（Application No Responding）错误时，Monkey是否停止运行如果使用--ignore-timeouts参数，即使应用程序发生ANR错误，Monkey依然会发送事件，直到事件计数完成。
+
+//APP发生许可证书错误时，Monkey依然继续发送事件，直到事件数目达到目标值为止
+  adb shell monkey -p com.tencent.WeChat --ignore-security-exceptions 1000
+说明：用于指定当应用程序发生许可错误时（如证书许可，网络许可等），Monkey是否停止运行。如果使用--ignore-security-exceptions 参数，即使应用程序发生许可错误，Monkey依然会发送事件，直到事件计数完成。
+
+//APP发生错误时，应用程序停止运行并保持在当前状态
+  adb shell monkey -p com.tencent.WeChat  --kill-process-after-error 1000
+说明：用于指定当应用程序发生错误时，是否停止其运行。如果使用--kill-process-after-error参数，当应用程序发生错误时，应用程序停止运行并保持在当前状态（注意：系统并不会结束该应用程序的进程）。
+
+//监视并报告Android系统本地代码的崩溃事件
+  adb shell monkey -p com.tencent.WeChat  --monitor-native-crashes 1000
+
+//调整触摸事件的百分比
+  adb shell monkey -p com.tencent.WeChat --pct-touch 10 1000
+说明：--pct-｛+事件类别｝｛+事件类别百分比｝用于指定每种类别事件的百分比（在Monkey事件序列中，该类事件数目占总事件数目的百分比），--pct-touch ｛+百分比｝用于调整触摸事件的百分比(触摸事件是一个down-up事件，它发生在屏幕上的某单一位置)。
+
+//调整动作事件的百分比
+  adb shell monkey -p com.tencent.WeChat --pct-motion 20 1000
+说明：调整动作事件的百分比(动作事件由屏幕上某处的一个down事件、一系列的伪随机事件和一个up事件组成)。
+
+//调整轨迹事件的百分比
+  adb shell monkey -p com.tencent.WeChat --pct-trackball 30 1000
+说明：调整轨迹事件的百分比(轨迹事件由一个或几个随机的移动组成，有时还伴随有点击)。
+
+//调整“基本”导航事件的百分比
+  adb shell monkey -p com.tencent.WeChat --pct-nav 40 1000
+说明：调整“基本”导航事件的百分比(导航事件由来自方向输入设备的up/down/left/right组成)。
+
+//调整主要导航事件的百分比
+  adb shell monkey -p com.tencent.WeChat --pct-majornav 50 1000
+说明：调整主要导航事件的百分比(这些导航事件通常引发图形界面中的动作，如：5-way键盘的中间按键、回退按键、菜单按键)。
+
+//调整系统按键事件的百分比
+  adb shell monkey -p com.tencent.WeChat --pct-syskeys 60 1000
+说明：调整系统按键事件的百分比(这些按键通常被保留，由系统使用，如Home、Back、Start Call、End Call及音量控制键)
+
+//调整启动Activity的百分比
+  adb shell monkey -p com.tencent.WeChat --pct-anyevent 100 1000
+说明：调整其它类型事件的百分比，它包罗了所有其它类型的事件，如：按键、其它不常用的设备按钮等。
+
+//指定多个类型事件的百分比
+  adb shell monkey -p com.tencent.WeChat --pct-anyevent 50 --pct-appswitch 50 1000
+注意：各事件类型的百分比总数不能超过100%。
+
+Monkey命令组合及规范
+Monkey参数的约束限制规范：
+1.一个 -p 选项只能用于一个包，指定多个包，需要使用多个 -p 选项；
+2.-s <seed> 伪随机数生成器的seed值，如果用相同的seed值再次运行monkey，它将生成相同的事件序列，对9个事件分配相同的百分比；
+3.-c 用此参数指定一个或多个类别，同样，需要指定多个类别就需要多个-c参数；常见的类别有Intent.category.LAUNCHER、Intent.category.MONKEY；
+4.-v 命令行的每一个-v将增加反馈信息的级别：
+Level 0为一个-v的命令，除了启动的提示、测试完成和最终结果之外，提供较少的信息 ;
+Level 1为两个-v的命令，提供较为详细的测试信息，如逐个发送到Activity的事件 ；
+Level 2为三个-v的命令，提供更加详细的测试信息，如测试中被选中或未被选中的Activity；
+
+稳定性测试monkey：
+adb -s 192.168.77.104:5555 shell monkey -s 7654321 --ignore-crashes --ignore-timeouts --ignore-security-exceptions --pct-touch 50 --pct-motion 50 -p com.douban.frodo --throttle 1000 -v -v -v 1000>C:Users\LJH\Desktop\monkey.txt
+
+常见命令组合：
+1.monkey -p com.package -v 500 ：简单的输出测试的信息；
+2.monkey -p com.package -v -v -v 500  ：以深度为三级输出测试信息；
+3.monkey -p com.package --port 端口号 -v ：为测试分配一个专用的端口号，不过这个命令只能输出跳转的信息及有错误时输出信息；
+4.monkey -p com.package -s 数字 -v 500 ：为随机数的事件序列定一个值，若出现问题下次可以重复同样的系列进行排错；
+5.monkey -p com.package -v --throttle 3000 500 
+:为每一次执行一次有效的事件后休眠3000毫秒；
+
+Monkey测试参数建议
+间隔时间：500毫秒；
+种子数：随机；
+遇到错误：不停止；
+执行时长：每机型不小于12小时或点击次数：100万次；
+机型覆盖建议：覆盖高中低端机型
+不同芯片平台（高通、海思、MTK等）
+不同分辨率（480*800以上主流分辨率）
+不同安卓版本（安卓4.0以上主流安卓版本）；
+
+Monkey参考命令
+adb shell monkey -p com.tencent.XXX(替换包名) --throttle 500 --ignore-crashes --ignore-timeouts --ignore-security-exceptions --ignore-native-crashes --monitor-native-crashes -v -v -v 1000000>d:\monkeyScreenLog.log
+
+测试可以发现的问题
+Android平台应用程序可能产生以下四种Crash：
+App层（JAVA应用程序）：
+1、Force Close Crash
+2、ANR Crash 
+Native层(本地框架)：
+3、Tombstone Crash(Native Crash)
+Kernel层(LINUX内核空间)：
+4、Kernel Panic
+
+Monkey工具九个事件
+//Monkey工具随机事件类型（seed值）
+ [--pct-touch PERCENT]  -0. 触摸事件（down-up事件）；
+ [--pct-motion PERCENT] -1.动作事件（down-up事件和伪随机事件组成）；
+ [--pct-trackball PERCENT] -2.轨迹事件（随机移动、有时伴随点击）；
+ [--pct-nav PERCENT] -3.基本导航事件（导航事件来自方向输入设备的up、down、left、right组成）；
+ [--pct-majornav PERCENT] -4.主要导航事件（引发图形界面动作，如回退、菜单按键）；
+ [--pct-syskeys PERCENT] -5.系统按键事件（这些按键通常被保留，由系统使用，如Home、Back、Start Call、End Call及音量控制键）；
+ [--pct-appswitch PERCENT] -6.调整启动Acticity百分比（在随机间隔里，Monkey将执行一个startActivity()调用，作为最大程度覆盖包中全部Activity的一种方法，从一个Activity跳转到另一个Activity）；
+ [--pct-flip PERCENT]    -7.调整键盘翻转事件的百分比
+ [--pct-anyevent PERCENT]-8.其它类型事件（它包罗了所有其它类型的事件，如：按键、不常用的设备按钮等）
+记录monkey log的值
+adb shell monkey -p com.xxx.xxx 1000 > C:\monkey.txt
+说明：
+ 1.ctrl + c 退出shell 模式 然后 C:\XXX\XXXX>adb shell monkey -p 包名 -v 300 >e:\text.txt 注：进入adb shell后就相当于进入linux的root下面，没有权限在里面创建文件~
+ adb remount 获取root权限。
+ 2.数字对应下面百分比对应的数字，比如下图中0：15.0%，表示分配--pct-touch事件15%，测试100次分配15次测试down-up
+// Event percentages:
+//   0:15.0%
+//   1:10.0%
+//   2:15.0%
+//   3:25.0%
+//   4:15.0%
+//   5:2.0%
+//   6:2.0%
+//   7:1.0%
+//   8:15.0%
+ 3.如果在monkey参数中不指定上述参数，这些动作都是随机分配的，9个动作其每个动作分配的百分比之和为100%，我们可以通过添加命令选项来控制每个事件的百分比，进而可以将操作限制在一定的范围内。
+示例：我们先来看一下不加动作百分比控制，系统默认分配事件百分比的情况
+命令：adb shell monkey -v -p com.tencent.WeChat 500
+再看一下指定事件，控制事件百分比之后的情况
+命令：adb shell monkey -v -p com.tencent.WeChat  --pct-anyevent 100 500
+说明：--pct-anyevent 100 表明pct-anyevent所代表的事件的百分比为100%
+运行结果如下：
+// Event percentages:
+//   0:0.0%
+//   1:0.0%
+//   2:0.0%
+//   3:0.0%
+//   4:0.0%
+//   5:0.0%
+//   6:0.0%
+//   7:0.0%
+//   8:100.0%
+
+Monkey日志定位问题
+1 .典型Monkey测试日志文件输出
+//主要Log文件说明
+anr目录：从手机/data/anr导出的日志，保存发生anr crash 时的相关信息；
+dontpanic目录：从手机/data/dontpanic/导出的日志，保存发生Kernel Panic时的相关信息；
+Tombstone目录：从手机/data/tombstones/导出的日志，保存发生Tombstone Crash时的错误信息；
+dropbox目录：从手机/data/tombstones/导出的日志，经过dropbox服务截取的部分tombstones错误信息；
+BugReportLog.log：通过adb shell bugreport命令提取的系统各种信息；
+MonkeyScreenLog.Log：保存Monkey测试过程、应用层错误信息，发生Native Crash时，在此文件也会有记录；
+2 .通过日志定位问题步骤
+（1） 在MonkeyScreen.Log日志文件搜索关键词“Fatal”、“Crash”、“ANR”定位到发生Crash的详细堆栈信息，或分析发生Crash前后的日志事件；
+（2）检查dropbox目录下是否有相关crash日志信息，主要关注是否有以下4类crash错误信息：data_app_wtf，data_app_anr，data_app_crash，system_server_watchdog
+（3） 检查tombstone目录是否有生成日志，有的话说明发生过native crash
+（4）通过anr目录中的日志文件或BugReport.log日志文件，进一步分析问题原因；
+（5）通过上述日志信息，结合代码分析或通过搜索引擎寻找对应问题的可能错误，定位解决问题。
+
+Monkey后台运行
+作用：使得android系统的设备脱离PC，独立运行monkey和记录logcat和monkey日志。
+方法如下：
+1. 连接设备和PC；
+2 .adb shell 命令进入命令行模式；
+3. 输入 logcat 命令(日志文件的地址使用> /sdcard/logcat_x.log)，之后回车，
+如：logcat -v time >/sdcard/logcat_x.log
+4 .输入 monkey 命令(日志文件的地址使用> /sdcard/monkey_x.txt)，回车；
+如：monkey -p packageName --throttle 500 -v -v -v 1000000 >/sdcard/monkey.log 对于其余的monkey命令的参数可以自己添加
+5 .此时monkey开始运行，拔掉设备和PC的数据线；
+6 .同时需确认logcat和monkey的日志记录ok（重新连接设备和PC，通过adb shell，进入sdcard，使用 ls –l查看，logcat和monkey日志文件的大小不断变化即ok）。
+
+调试参数
+--dbg-no-events：当指定时，monkey将执行初始启动到一个测试活动，但不会产生任何进一步的事件。为了获得最佳效果，结合使用-v，一个或多个包限制，以及一个非零的油门来保持猴子运行30s或更长时间。这提供一个可以监视应用程序包转换的环境
+--hprof：如果设置，则此选项将在monkey事件序列之前和之后立即生成分析报告，生成文件较大慎用
+--ignore-crashes：通常，应用程序崩溃或遇到任何类型未处理的异常会停止，此选项使其继续向系统发送事件，直到计数完成
+--ignore-timeouts：通常超时会停止，此选项使其继续向系统发送事件，直到计数完成
+--ignore-security-exceptions：通常遇到权限错误会停止，此选项使其继续向系统发送事件，直到计数完成
+--kill-process-after-error：通常当monkey因错误停止时，失败的应用程序将保持运行。当此选项设置时，它会通知系统停止发生错误的过程
+--mnitor-native-crashes：监视并报告android系统本机代码发生的崩溃。如果设置了--kill-process-after，系统将停止
+--wait-dbg：停止执行monkey直到调试器连接它
+
+若有ANR错误，进入adb shell输入adb pull /data/anr/traces.txt C:\Users\LJH\Desktop
+在logcat搜crash exception error 找到指定部分日志发给开发

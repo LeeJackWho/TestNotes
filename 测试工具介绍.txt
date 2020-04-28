@@ -1,0 +1,21 @@
+QTP 功能测试工具、支持web、桌面自动化测试
+
+QC测试编写
+
+Loadrunner web自动化测试、适合做复杂场景的性能测试
+商业负载测试工具
+lr中的参数类型有两种，一种是有边框可以看属性的，一种是无边框不能看属性的，区别是什么？
+有框能够输入参数，无框系统自定义
+
+Selenium web自动化测试，主要是功能测试
+
+Jmeter web、接口、性能，是Apache公司使用java平台开发的一款测试工具，web测试在通信层（无UI界面）
+
+Robot framework 基于Python可扩展地（关键字驱动）测试自动化框架
+
+web自动化测试：selenium、robot framework
+App自动化测试：Appium、Monkeyrunner、UIautomation
+PC客户端自动化测试：QTP
+接口自动化测试：Jmeter、Postman、httpUnit、RESTClient
+云测平台：Testin、Testbird
+性能测试：Jmeter、LoadRunner

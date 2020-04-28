@@ -1,0 +1,9 @@
+含有JUnit和TestNG的eclipse位置：E:\软件测试\大三功能测试\eclipse-jee-kepler-SR1-win32-x86_64\eclipse
+
+包的命名格式“com.公司名.项目名.模块名”
+
+JUnit学习：https://www.imooc.com/video/6843
+测试用例不是证明你是对的，是证明你没有错
+测试用例（Testcase）用来达到想要的预期结果，但对于逻辑错误无能为例
+eclipse引入JUnit对项目根目录右键选Properties，Java Build Path，Libraries，Add Library，选择JUnit（TestNG也是buildpath）
+
