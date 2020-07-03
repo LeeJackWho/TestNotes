@@ -1,3 +1,19 @@
+30段实用代码：https://mp.weixin.qq.com/s/WFIW4pqURcrl-YzDBm3Bbw
+pytest：https://mp.weixin.qq.com/s/k6ZZ42CFZhq20RGuBcOOfQ
+ptest报告：https://mp.weixin.qq.com/s/nzBQATUkfI5MOMZtPgy7Sw
+参数组合：https://mp.weixin.qq.com/s/uZ-z325hqmAsstS18OHJ1w
+接口编写：https://mp.weixin.qq.com/s/6A_btCWuPmtlM3CRHXwOHQ
+接口自动化：https://mp.weixin.qq.com/s/-qLOpJKY9pQ1EfXz-evGog
+数据分析：https://mp.weixin.qq.com/s/i1dtSTI_-B_R4_lZTHs4jg
+panda用法：https://mp.weixin.qq.com/s/ZAYhxbOV7p-7Gm2lgXuKQA
+https://mp.weixin.qq.com/s/Z9coVcjrAXUdK6sbrvEbug
+接口：https://mp.weixin.qq.com/s/77XgpO8ypk1B8zGv9zvWQQ
+一行python代码：https://mp.weixin.qq.com/s/raEiMLkrYgkUUEQZM-q2vw
+swagger：https://mp.weixin.qq.com/s/wlocnlzeXMaxYQh6jkoGLA
+操作mysql：https://mp.weixin.qq.com/s/LqL1OK_Jn8VbhgQAQsi3Qw
+Django构建RestAPI：https://mp.weixin.qq.com/s/mc-KgqfgKE5drzg9_VZeOw
+https://mp.weixin.qq.com/s/aCiSMlLZtgkpuOEtN24XBw
+
 python中的数据类型
 一、整数
 二、浮点数 科学计数法表示 1.23*10的九次方表示为1.23e9 0.000012表示为1.2e-5
