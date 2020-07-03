@@ -1,5 +1,9 @@
+导出Jmeter脚本：https://mp.weixin.qq.com/s/smM1T3Fs8xatvpuhZvEW_A
+https://mp.weixin.qq.com/s/9l5ZDLi-Sf-fMi3zO2V5cg
 弱网测试：https://blog.csdn.net/eleven521/article/details/19089671
 fiddler抓包：https://mp.weixin.qq.com/s/VfqZFOLUq6nnh6NCw-LaaA
+https://mp.weixin.qq.com/s/Ca6SzEEw3RK3158sS_IlIw
+
 fiddler抓包的内容：
 1、模拟限速操作
 2、篡改数据

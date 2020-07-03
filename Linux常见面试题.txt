@@ -1,3 +1,6 @@
+常用命令：https://mp.weixin.qq.com/s/0p6MsbHj_o-fs1HSAKy4iA
+网络命令：https://mp.weixin.qq.com/s/GC3QMIHrgC4CsZd5KxjgkQ
+
 问题一：
 绝对路径用什么符号表示？当前目录、上层目录用什么表示？主目录用什么表示? 切换目录用什么命令？
 答案：

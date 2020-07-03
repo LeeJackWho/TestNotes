@@ -1,3 +1,13 @@
+性能测试之Mysql快速创建千万级测试数据：https://mp.weixin.qq.com/s/uHLUU6-UNHDgCnkoT5XpQQ
+性能实战干货：https://mp.weixin.qq.com/s/-SXqPQm4xPW-wpnDw_-QQQ
+性能总结：https://mp.weixin.qq.com/s/ECO3pguWY_wYrqyomIhcHQ
+面试题：https://mp.weixin.qq.com/s/yqtu8N3FIB0x7ujqTqZEgg
+接口性能汇总：https://mp.weixin.qq.com/s/h-LMDluHSJIAXlQ1Sk5jhw
+loadrunner性能：https://mp.weixin.qq.com/s/1TD4aoUDqVy32XJAe845Ig
+lr实战：https://mp.weixin.qq.com/s/FSDuUC3cGWo_GkOfLWXLUw
+https://mp.weixin.qq.com/s/9OZ0qOB-IBzb6DBS10aMpA
+性能常见指标:https://mp.weixin.qq.com/s/vNlIRYZLYT8mNx74Zp2LQw
+
 性能测试核心指标解析
 1.
 事务
@@ -51,3 +61,5 @@ TPS=1000/响应时间*并发数
 TPS=1000*并发数/响应时间
 
 在系统达到性能瓶颈前，TPS和并发成正比
+
+性能测试应用领域：https://mp.weixin.qq.com/s/bO8Q2JJkK_fSnPVWU_mnBg

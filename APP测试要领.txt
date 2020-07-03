@@ -1,3 +1,8 @@
+app常见性能测试点：https://mp.weixin.qq.com/s/aoaghjhoXZpPIwkn3LvUew
+测试集锦：https://mp.weixin.qq.com/s/aSIO7xoT_bQ_BSy81GXFXg
+https://mp.weixin.qq.com/s/Esi83oLqlDF3CCDkll4tlA
+兼容性：https://mp.weixin.qq.com/s/dXYZ_RqhRGw9-ea4396TTw
+
 1
 APP本身的功能及测试要点
 

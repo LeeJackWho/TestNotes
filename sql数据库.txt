@@ -1,3 +1,5 @@
+navicat快捷键：https://mp.weixin.qq.com/s/ozIQ8swqy1x1ttQ0xZQPMg
+
 分组查询
 group by和聚合函数（sum avg min max）一起用
 having对分组之后的数据进行过滤

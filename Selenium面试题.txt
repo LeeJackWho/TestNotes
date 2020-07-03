@@ -1,3 +1,28 @@
+源码：https://mp.weixin.qq.com/s/F574ZG2v3WF8Pobiz5qEFA
+https://mp.weixin.qq.com/s/9QVP9V0UJ0UxmmvAicckGw
+https://mp.weixin.qq.com/s/y1BFeQwghWV1MtyauSBzJA
+https://mp.weixin.qq.com/s/-KNApw_ikx1rKOl1UQnrTw
+集合：https://mp.weixin.qq.com/s/zLmtE52bZVLG7r_ZaZmDNg
+https://mp.weixin.qq.com/s/bAZSWR8gxaLl3IlmR13gQQ
+8种技巧：https://mp.weixin.qq.com/s/8wRHc_krXNfWclNeOJDNPg
+文章汇总：https://mp.weixin.qq.com/s/XOfHxc_dkt70BfiUD8s10Q
+frame：https://mp.weixin.qq.com/s/-Sp3KAUc8-tJDIndJunL-A
+等待：https://mp.weixin.qq.com/s/QtskAqJF5OOkq-gd8YRm3w
+Junit和Selenium断言：https://mp.weixin.qq.com/s/KG4sltQMCfH2MGXkRdtnwA
+https://mp.weixin.qq.com/s/Gt82cPmS2iX-DhKXTXiy8g
+https://mp.weixin.qq.com/s/8YkonXTYgAV5-pLs9yEAVw
+Js定位：https://mp.weixin.qq.com/s/OTPAKVFjPZ2KrnMXz-rfNw
+比赛总结：https://mp.weixin.qq.com/s/ytIT6-Ry2A0rYl2rFm3pNA
+https://mp.weixin.qq.com/s/a8Hzj1n7rZ47uY0iVWVEEw
+表格定位：https://mp.weixin.qq.com/s/fvW2QcCBM488np7_WedoJQ
+unitest使用：https://mp.weixin.qq.com/s/5y-_ry9g8aL7bRx5oQI1Qw
+https://mp.weixin.qq.com/s/G0Bktm3ud8EXWaCy39n7bA
+https://mp.weixin.qq.com/s/xtE0CNe6fpxDSpQLSEsfQQ
+https://mp.weixin.qq.com/s/d7flhzgK2aKqLFJYWSNzIg
+https://mp.weixin.qq.com/s/QucYN8juHuNUm7a5Rk3u4w
+https://mp.weixin.qq.com/s/wlpyCF2KxNrcQP9TbgP6oA
+
+
 1. 什么是Selenium？
 Selenium是一个开源的web自动化测试框架，主要是基于web uI的自动化测试。现在的版本，逐步增加了对移动端的自动化测试。Selenium支持多种语言进行开发自动化测试脚本，有Java,python，C#，Javascript等等。Selenium支持跨浏览器平台测试。
 

@@ -1,3 +1,13 @@
+参数化数据驱动：https://mp.weixin.qq.com/s/6OyhiVZ2qx9kEkDPkte-PA
+DDT：https://mp.weixin.qq.com/s/HEKO5Hl9qCT4_C_xdW3TMA
+POM：https://mp.weixin.qq.com/s/d0Y26ev0Gjnot0l-QzRsfA
+UI定位：https://mp.weixin.qq.com/s/HHfb_UfzNV_UQ1hxg91dgg
+https://mp.weixin.qq.com/s/oOKvZDj3lz-1tblRcg7zqw
+上传文件：https://mp.weixin.qq.com/s/E-GKgg9UhhlhyCpwdSVd4A
+Allure：https://mp.weixin.qq.com/s/IniVImfBSzh_U9xdSxvGjQ
+https://mp.weixin.qq.com/s/J7-CO-UDspUGSpB8isjsmQ
+Jenkins：https://mp.weixin.qq.com/s/GkLqHr33QUsRYszR7OP8UQ
+
 1、super 是干嘛用的？在 Python2 和 Python3 使用，有什么区别？为什么要使用 super？请举例说明。
 
 答：

@@ -1,0 +1,21 @@
+https://mp.weixin.qq.com/s/IqhwExyOzghrDuWOLDTVPw
+
+Python 分析：https://mp.weixin.qq.com/s/s-d5VxSbYKd1xmvS2XrvWQ
+
+groovy爬虫练习：https://mp.weixin.qq.com/s/1TisDceIL1-Luqz_wOqAiw
+
+电子书爬虫：https://mp.weixin.qq.com/s/KGW0dIS5NTLgxyhSjxDiOw
+
+爬B站弹幕：https://mp.weixin.qq.com/s/HMPI9Rhh2DMHzHnZ5ypbRA
+
+https://mp.weixin.qq.com/s/-92qYIOG9rax6Xn52CWQIQ
+
+爬网站:https://mp.weixin.qq.com/s/Gn0AQ-4XGA8vEN4OlEy31Q
+
+webmagic爬取：https://mp.weixin.qq.com/s/JtKmZncR2fRKy7byLsM9gA
+
+库：https://mp.weixin.qq.com/s/pAMlYdcX9NbbKiOrx_SpOw
+
+selenium爬虫：https://mp.weixin.qq.com/s/HkFWyXrNYCNtuvSye6IU3A
+
+Scrapy：https://blog.csdn.net/weixin_43430036/article/details/84871624

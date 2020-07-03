@@ -1,3 +1,12 @@
+测试专栏：https://mp.weixin.qq.com/s/2gcdYkOz4OktxiCd_4Q7Fg
+测试资料：https://mp.weixin.qq.com/s/soEXWMqq7kZhJT2foKZeBQ
+资料：https://mp.weixin.qq.com/s/BSWbnDVRmWChUFveOiV_6A
+接口汇总：https://mp.weixin.qq.com/s/r2Oxp30GVJVLpMuwjOkkGw
+https://mp.weixin.qq.com/s/mRxT23hW5Uj0KmYFIGGxpg
+测开：https://mp.weixin.qq.com/s/MCvG1s4eAoEm0HhJtn2uFQ
+https://mp.weixin.qq.com/s/X-Fsrb24v5ILfefAjR7onw
+UI自动化：https://mp.weixin.qq.com/s/EPGIHwE8V8tlTGXWS2u6BQ
+
 马克二型计算机里发现bug
 Grace Hopper发现计算机程序中第一个bug，创造计算机世界最大的bug千年虫
 

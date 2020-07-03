@@ -1,3 +1,13 @@
+Cache、Cookie、Session、Token 傻傻分不清楚：https://mp.weixin.qq.com/s/DZXr8VGpQCQrcxS7xjhmMA
+测试面试题：https://mp.weixin.qq.com/s/3jllku-Wlxvq4YsbKxq3RA
+https://mp.weixin.qq.com/s/JvtJflqsI9IhGJwODEE-1g
+https://mp.weixin.qq.com/s/X3QXh76XrdVldG672RYpFQ
+接口面试：https://mp.weixin.qq.com/s/pHmAVTEMimbzhFUZ2_j7HQ
+功能测试:https://mp.weixin.qq.com/s/OEEWkEN-vgGzAjEIY2HThw
+https://mp.weixin.qq.com/s/tbX3DJf3UNIPFrsu6RNKhw
+https://mp.weixin.qq.com/s/DGqhrZdT7L3hCkYfUomm9Q
+https://mp.weixin.qq.com/s/UZGUho19QQXf0-xw-Nz-ew
+
 25个经典面试题：
 1、在搜索引擎中输入汉字就可以解析到对应的域名，请问如何用LoadRunner进行测试？
 建立测试计划，确定测试标准和测试范围
